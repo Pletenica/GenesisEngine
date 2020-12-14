@@ -260,6 +260,8 @@ void ModuleRenderer3D::DrawAABB(float3* cornerPoints)
 	if (draw_aabbs == false)
 		return;
 
+	glColor3f(0, 1, 0);
+	glDisable(GL_LIGHTING);
 	glBegin(GL_LINES);
 
 	glVertex3f(cornerPoints[0].x, cornerPoints[0].y, cornerPoints[0].z);
@@ -298,7 +300,10 @@ void ModuleRenderer3D::DrawAABB(float3* cornerPoints)
 	glVertex3f(cornerPoints[7].x, cornerPoints[7].y, cornerPoints[7].z);
 	glVertex3f(cornerPoints[3].x, cornerPoints[3].y, cornerPoints[3].z);
 
+
 	glEnd();
+	glColor3f(1, 1, 1);
+	glEnable(GL_LIGHTING);
 }
 
 DisplayMode ModuleRenderer3D::GetDisplayMode() { return display_mode; }

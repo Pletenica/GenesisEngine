@@ -68,7 +68,7 @@ bool Editor::Init()
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable | ImGuiConfigFlags_NavEnableKeyboard | ImGuiConfigFlags_NavEnableSetMousePos;
 	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-	ImGui::StyleColorsDark();
+	ChangeTheme("Dark");
 
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
@@ -287,7 +287,32 @@ void Editor::ChangeTheme(std::string theme)
 {
 	if (theme == "Dark")
 	{
-		ImGui::StyleColorsDark();
+		ImGuiStyle& style = ImGui::GetStyle();
+		style.WindowRounding = 6.0f;
+		style.FrameRounding = 3.0f;
+		style.ScrollbarRounding = 0;
+
+		style.Colors[ImGuiCol_Text] = ImVec4(0.9f, 0.9f, 0.9f, 1.0f);
+		style.Colors[ImGuiCol_WindowBg] = ImVec4(0.1f, 0.1f, 0.1f, 1.0f);
+		style.Colors[ImGuiCol_Border] = ImVec4(0.4f, 0.4f, 0.4f, 1.0f);
+		style.Colors[ImGuiCol_TitleBg] = ImVec4(0.2f, 0.2f, 0.2f, 1.0f);
+		style.Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.3f, 0.3f, 0.3f, 1.0f);
+		style.Colors[ImGuiCol_MenuBarBg] = ImVec4(0.25f, 0.25f, 0.25f, 1.0f);
+		style.Colors[ImGuiCol_Button] = ImVec4(0.25f, 0.25f, 0.25f, 1.0f);
+		style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.65f, 0.65f, 0.65f, 1.0f);
+		style.Colors[ImGuiCol_PopupBg] = ImVec4(0.25f, 0.25f, 0.25f, 1.0f);
+		style.Colors[ImGuiCol_Header] = ImVec4(0.25f, 0.25f, 0.25f, 1.0f);
+		style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.3f, 0.3f, 0.3f, 1.0f);
+		style.Colors[ImGuiCol_ResizeGrip] = ImVec4(0.35f, 0.35f, 0.35f, 1.0f);
+		style.Colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.4f, 0.4f, 0.4f, 1.0f);
+		style.Colors[ImGuiCol_CheckMark] = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+		style.Colors[ImGuiCol_FrameBg] = ImVec4(0.3f, 0.3f, 0.3f, 1.0f);
+
+		style.Colors[ImGuiCol_Tab] = ImVec4(0.1f, 0.1f, 0.1f, 0.5f);  //La pestanya que no esta seleccionada, color
+		style.Colors[ImGuiCol_TabHovered] = ImVec4(0.29f, 0.29f, 0.29f, 1.00f); //Suda de eso
+		style.Colors[ImGuiCol_TabActive] = ImVec4(0.4f, 0.4f, 0.4f, 1.0f); //La pestanya que esta seleccionada, color
+		style.Colors[ImGuiCol_TabUnfocused] = ImVec4(0.01f, 0.01f, 0.01f, 1.00f); //Quan la ventana no està seleccionada, com es veu la pestanya activa, color
+		style.Colors[ImGuiCol_TabUnfocusedActive] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f); //Quan la ventana no està seleccionada, com es veu les pestanyes no actives, color
 	}
 	else if (theme == "Classic")
 	{
@@ -295,8 +320,45 @@ void Editor::ChangeTheme(std::string theme)
 	}
 	else if (theme == "Light")
 	{
-		ImGui::StyleColorsLight();
+		ImGuiStyle& style = ImGui::GetStyle();
+		style.WindowRounding = 6.0f;
+		style.FrameRounding = 3.0f;
+		style.ScrollbarRounding = 0;
+
+		style.Colors[ImGuiCol_Text] = ImVec4(0.0f, 0.0f, 0.0f, 1.0f);
+		style.Colors[ImGuiCol_WindowBg] = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+		style.Colors[ImGuiCol_Border] = ImVec4(0.3f, 0.3f, 0.3f, 1.0f);
+		style.Colors[ImGuiCol_TitleBg] = ImVec4(0.65f, 0.65f, 0.65f, 1.0f);
+		style.Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.7f, 0.7f, 0.7f, 1.0f);
+		style.Colors[ImGuiCol_MenuBarBg] = ImVec4(0.8f, 0.8f, 0.8f, 1.0f);
+		style.Colors[ImGuiCol_Button] = ImVec4(0.8f, 0.8f, 0.8f, 1.0f);
+		style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.8f, 0.8f, 0.8f, 1.0f);
+		style.Colors[ImGuiCol_PopupBg] = ImVec4(0.9f, 0.9f, 0.9f, 1.0f);
+		style.Colors[ImGuiCol_Header] = ImVec4(0.9f, 0.9f, 0.9f, 1.0f);
+		style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.75f, 0.75f, 0.75f, 1.0f);
+		style.Colors[ImGuiCol_ResizeGrip] = ImVec4(0.75f, 0.75f, 0.75f, 1.0f);
+		style.Colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.9f, 0.9f, 0.9f, 1.0f);
+		style.Colors[ImGuiCol_CheckMark] = ImVec4(0.2f, 0.2f, 0.2f, 1.0f);
+		style.Colors[ImGuiCol_FrameBg] = ImVec4(0.8f, 0.8f, 0.8f, 1.0f);
+
+		style.Colors[ImGuiCol_Tab] = ImVec4(0.5f, 0.5f, 0.5f, 0.1f);  //La pestanya que no esta seleccionada, color
+		style.Colors[ImGuiCol_TabHovered] = ImVec4(0.8f, 0.8f, 0.8f, 1.00f); //Suda de eso
+		style.Colors[ImGuiCol_TabActive] = ImVec4(0.8f, 0.8f, 0.8f, 1.0f); //La pestanya que esta seleccionada, color
+		style.Colors[ImGuiCol_TabUnfocused] = ImVec4(0.8f, 0.8f, 0.8f, 1.00f); //Quan la ventana no està seleccionada, com es veu la pestanya activa, color
+		style.Colors[ImGuiCol_TabUnfocusedActive] = ImVec4(0.8f, 0.8f, 0.8f, 1.00f); //Quan la ventana no està seleccionada, com es veu les pestanyes no actives, color
 	}
+
+	ImGuiStyle& style = ImGui::GetStyle();
+	style.Colors[ImGuiCol_TitleBgActive] = ImVec4(0.1f, 0.502f, 0.808f, 1.0f);
+	style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.1f, 0.502f, 0.808f, 1.0f);
+	style.Colors[ImGuiCol_HeaderActive] = ImVec4(0.1f, 0.502f, 0.808f, 1.0f);
+	style.Colors[ImGuiCol_ResizeGripActive] = ImVec4(0.1f, 0.502f, 0.808f, 1.0f);
+	style.Colors[ImGuiCol_SliderGrabActive] = ImVec4(0.1f, 0.502f, 0.808f, 1.0f);
+	style.Colors[ImGuiCol_FrameBgActive] = ImVec4(0.1f, 0.502f, 0.808f, 1.0f);
+
+	style.Colors[ImGuiCol_DockingPreview] = ImVec4(0.1f, 0.502f, 0.808f, 1.0f); // Color que es veu quan vas a juntar finestres (quadres)
+	style.Colors[ImGuiCol_DockingEmptyBg] = ImVec4(0.1f, 0.502f, 0.808f, 1.0f);// Color que es veu quan vas a juntar finestres en gran(ficar el mateix que a dalt)
+
 }
 
 bool Editor::CreateMainMenuBar() {
