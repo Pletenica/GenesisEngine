@@ -55,6 +55,7 @@ public:
 public: 
 	bool to_delete;
 	uint UUID = 0;
+	std::vector<GameObject*> children;
 
 private:
 	void GenerateAABB(GnMesh* mesh);
@@ -66,7 +67,6 @@ private:
 	GameObject* _parent;
 	Transform* transform;
 	std::vector<Component*> components;
-	std::vector<GameObject*> children;
 
 	OBB _OBB;
 	AABB _AABB;

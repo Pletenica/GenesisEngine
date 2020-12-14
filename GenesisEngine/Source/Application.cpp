@@ -76,6 +76,7 @@ bool Application::Init()
 		ret = modules_vector[i]->Start();
 	}
 	
+	scene->GetActualCamera(scene->GetRoot());
 
 	config.Release();
 	RELEASE_ARRAY(buffer);

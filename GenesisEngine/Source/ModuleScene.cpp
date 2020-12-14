@@ -7,6 +7,8 @@
 #include "GameObject.h"
 #include "Transform.h"
 
+#include <algorithm>
+
 ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled), show_grid(true), selectedGameObject(nullptr), root(nullptr) 
 {
 	name = "scene";
@@ -44,7 +46,6 @@ bool ModuleScene::Start()
 	App->renderer3D->SetMainCamera((Camera*)camera->GetComponent(ComponentType::CAMERA));
 
 	//uint baker_house_texture = App->resources->ImportFile("Assets/Textures/Baker_house.png");
-
 	return ret;
 }
 
@@ -179,6 +180,30 @@ bool ModuleScene::ClearScene()
 	return ret;
 }
 
+Camera* ModuleScene::GetActualCamera(GameObject* _go)
+{
+	if (_go->GetParent() == nullptr) {
+		allcameras.clear();
+		actualCamera = nullptr;
+	}
+
+	Camera* c_cam = (Camera*)_go->GetComponent(ComponentType::CAMERA);
+
+	if (c_cam != nullptr) {
+		Camera* _ccam = c_cam;
+		allcameras.push_back(_ccam);
+
+		std::sort(allcameras.begin(), allcameras.end(), CompareCameraPriorities);
+		actualCamera = allcameras[0];
+	}
+
+	for (size_t i = 0; i < _go->children.size(); i++) {
+		GetActualCamera(_go->children[i]);
+	}
+
+	return actualCamera;
+}
+
 bool ModuleScene::Save(const char* file_path)
 {
 	bool ret = true;
@@ -265,5 +290,7 @@ bool ModuleScene::LoadConfig(GnJSONObj& config)
 }
 
 
-
-
+bool CompareCameraPriorities(Camera* i1, Camera* i2)
+{
+	return (i1->priority > i2->priority);
+}

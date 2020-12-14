@@ -139,6 +139,7 @@ void Material::OnEditor()
 {
 	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
 	{
+		ImGui::Indent();
 		if (ImGui::Checkbox("Enabled", &enabled)) {}
 
 		ImGui::SameLine();
@@ -213,6 +214,7 @@ void Material::OnEditor()
 		}
 
 		ImGui::Text("UID: %d", _resourceUID);
+		ImGui::Unindent();
 	}
 }
 

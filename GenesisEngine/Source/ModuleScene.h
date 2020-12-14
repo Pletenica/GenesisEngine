@@ -8,6 +8,7 @@
 
 class GameObject;
 class GnTexture;
+#include "Camera.h"
 
 class ModuleScene : public Module
 {
@@ -30,6 +31,7 @@ public:
 	void EditTransform();
 
 	bool ClearScene();
+	Camera* GetActualCamera(GameObject* _go);
 
 	bool Save(const char* file_path);
 	bool Load(const char* scene_file);
@@ -42,4 +44,9 @@ private:
 	GameObject* root;
 	ImGuizmo::OPERATION mCurrentGizmoOperation;
 	ImGuizmo::MODE mCurrentGizmoMode;
+
+	std::vector<Camera*> allcameras;
+	Camera* actualCamera = nullptr;
 };
+
+bool CompareCameraPriorities(Camera* i1, Camera* i2);

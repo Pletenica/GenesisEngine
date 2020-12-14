@@ -45,6 +45,7 @@ public:
 
 public:
 	FixedFOV fixedFOV;
+	float priority = 1.f;
 
 private:
 	Frustum _frustum;

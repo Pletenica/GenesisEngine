@@ -139,6 +139,7 @@ void GnMesh::OnEditor()
 {
 	if (ImGui::CollapsingHeader("Mesh", ImGuiTreeNodeFlags_DefaultOpen))
 	{
+		ImGui::Indent();
 		ImGui::Checkbox(" Enabled", &enabled);
 
 		ImGui::Separator();
@@ -199,6 +200,7 @@ void GnMesh::OnEditor()
 		ImGui::Spacing();
 		ImGui::Text("UID: %d", _resourceUID);
 		ImGui::Spacing();
+		ImGui::Unindent();
 	}
 }
 

@@ -26,6 +26,8 @@
 #include "WindowConfiguration.h"
 #include "WindowAbout.h"
 #include "WindowImport.h"
+#include "WindowParticles.h"
+#include "WindowEmitter.h"
 
 #ifdef _WIN32
 #define IM_NEWLINE  "\r\n"
@@ -51,6 +53,8 @@ Editor::Editor(bool start_enabled) : Module(start_enabled)
 	windows[CONFIGURATION_WINDOW] = new WindowConfiguration();
 	windows[ABOUT_WINDOW] = new WindowAbout();
 	windows[IMPORT_WINDOW] = new WindowImport();
+	windows[PARTICLES_EDITOR_WINDOW] = new WindowParticles();
+	windows[EMITTER_EDITOR_WINDOW] = new WindowEmitter();
 
 	//CONSOLE_WINDOW,
 	scene_name[0] = '\0';

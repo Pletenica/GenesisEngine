@@ -108,7 +108,7 @@ float4x4 Transform::GetLocalTransform()
 	return _localTransform;
 }
 
-float4x4 Transform::GetGlobalTransform()
+float4x4 Transform::GetGlobalTransform() const
 {
 	return _globalTransform;
 }
@@ -189,6 +189,11 @@ float3 Transform::GetPosition()
 	return _position;
 }
 
+float3 Transform::GetGlobalPosition() const
+{
+	float4x4 global_transform = _globalTransform;
+	return float3(global_transform[0][3], global_transform[1][3], global_transform[2][3]);
+}
 
 //Set rotation from Euler angles
 void Transform::SetRotation(float x, float y, float z)

@@ -230,6 +230,16 @@
     <ClCompile Include="TextureImporter.cpp">
       <Filter>FileManagement\Importers</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentParticleSystem.cpp">
+      <Filter>GameObjects &amp; Components</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowEmitter.cpp">
+      <Filter>EditorWindows\ParticlesWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowParticles.cpp">
+      <Filter>EditorWindows\ParticlesWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentBillboard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -575,6 +585,18 @@
     <ClInclude Include="Importers.h">
       <Filter>FileManagement\Importers</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentParticleSystem.h">
+      <Filter>GameObjects &amp; Components</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowEmitter.h">
+      <Filter>EditorWindows\ParticlesWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowParticles.h">
+      <Filter>EditorWindows\ParticlesWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentBillboard.h">
+      <Filter>GameObjects &amp; Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -630,6 +652,9 @@
     </Filter>
     <Filter Include="Libs\parson">
       <UniqueIdentifier>{03cd38a1-3ea2-4234-89ff-3f9057e2f643}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EditorWindows\ParticlesWindows">
+      <UniqueIdentifier>{896fe1dc-0545-486d-a1dd-85b13aecd39f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

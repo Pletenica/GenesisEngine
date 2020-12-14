@@ -49,6 +49,7 @@ void Light::OnEditor()
 {
 	if (ImGui::CollapsingHeader("Light", ImGuiTreeNodeFlags_DefaultOpen))
 	{
+		ImGui::Indent();
 		float diffuse4f[4] = { diffuse.r, diffuse.g, diffuse.b, diffuse.a };
 		if (ImGui::DragFloat3("Diffuse", diffuse4f, 0.1f, 0.0f, 1.0f))
 		{
@@ -66,6 +67,7 @@ void Light::OnEditor()
 			ambient.b = ambient4f[2];
 			ambient.a = ambient4f[3];
 		}
+		ImGui::Unindent();
 	}
 }
 

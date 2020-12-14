@@ -95,6 +95,8 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentBillboard.h" />
+    <ClInclude Include="ComponentParticleSystem.h" />
     <ClInclude Include="EditorWindow.h" />
     <ClInclude Include="FileSystem.h" />
     <ClInclude Include="GameObject.h" />
@@ -206,9 +208,11 @@
     <ClInclude Include="WindowAbout.h" />
     <ClInclude Include="WindowAssets.h" />
     <ClInclude Include="WindowConfiguration.h" />
+    <ClInclude Include="WindowEmitter.h" />
     <ClInclude Include="WindowHierarchy.h" />
     <ClInclude Include="WindowImport.h" />
     <ClInclude Include="WindowInspector.h" />
+    <ClInclude Include="WindowParticles.h" />
     <ClInclude Include="WindowScene.h" />
   </ItemGroup>
   <ItemGroup>
@@ -216,6 +220,8 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ComponentBillboard.cpp" />
+    <ClCompile Include="ComponentParticleSystem.cpp" />
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -287,9 +293,11 @@
     <ClCompile Include="WindowAbout.cpp" />
     <ClCompile Include="WindowAssets.cpp" />
     <ClCompile Include="WindowConfiguration.cpp" />
+    <ClCompile Include="WindowEmitter.cpp" />
     <ClCompile Include="WindowHierarchy.cpp" />
     <ClCompile Include="WindowImport.cpp" />
     <ClCompile Include="WindowInspector.cpp" />
+    <ClCompile Include="WindowParticles.cpp" />
     <ClCompile Include="WindowScene.cpp" />
   </ItemGroup>
   <ItemGroup>

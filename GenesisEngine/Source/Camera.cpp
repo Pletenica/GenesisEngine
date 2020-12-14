@@ -57,7 +57,16 @@ void Camera::OnEditor()
 {
 	if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_DefaultOpen))
 	{
+		ImGui::Indent();
 		ImGui::Spacing();
+
+		ImGui::PushItemWidth(150);
+		if (ImGui::DragFloat("##PriorityInput", &priority, 0.1f, 0, 100)) {
+			App->scene->GetActualCamera(App->scene->GetRoot());
+		}
+		ImGui::PopItemWidth();
+		ImGui::SameLine();
+		ImGui::Text("Priority");
 
 		bool fixedVerticalFOV = fixedFOV == FixedFOV::FIXED_VERTICAL_FOV;
 		bool fixedHorizontalFOV = fixedFOV == FixedFOV::FIXED_HORIZONTAL_FOV;
@@ -104,6 +113,7 @@ void Camera::OnEditor()
 		ImGui::DragFloat("Far Plane", &_frustum.farPlaneDistance, 5.0f, 2000.0f);
 
 		ImGui::Spacing();
+		ImGui::Unindent();
 	}
 }
 

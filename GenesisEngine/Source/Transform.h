@@ -22,7 +22,8 @@ public:
 	void Set(float4x4 transform);
 
 	float4x4 GetLocalTransform();
-	float4x4 GetGlobalTransform();
+	float4x4 GetGlobalTransform() const;
+	float3 GetGlobalPosition() const;
 	void SetGlobalTransform(float4x4 newTransform);
 
 	void UpdateLocalTransform();

@@ -2,6 +2,8 @@
 #include "Component.h"
 #include "Transform.h"
 #include "Mesh.h"
+#include "ComponentParticleSystem.h"
+#include "ComponentBillboard.h"
 #include "Material.h"
 #include "Camera.h"
 #include "ImGui/imgui.h"
@@ -98,15 +100,7 @@ void GameObject::OnEditor()
 		components[i]->OnEditor();
 	}
 
-	if(ImGui::CollapsingHeader("Debugging Information")) 
-	{
-		if(_parent != nullptr)
-			ImGui::Text("Parent: %s", _parent->GetName());
-		else 
-			ImGui::Text("No parent");
 
-		ImGui::Text("UUID: %d", UUID);
-	}
 }
 
 void GameObject::Save(GnJSONArray& save_array)
@@ -229,6 +223,12 @@ Component* GameObject::AddComponent(ComponentType type)
 		break;
 	case LIGHT:
 		component = new Light(this);
+		break;
+	case PARTICLE:
+		component = new ComponentParticleSystem(this);
+		break;
+	case BILLBOARD:
+		component = new ComponentBillboard(this);
 		break;
 	default:
 		break;

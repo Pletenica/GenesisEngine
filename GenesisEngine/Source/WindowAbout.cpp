@@ -22,9 +22,11 @@ void WindowAbout::Draw()
 
 		ImGui::Text("Made by: ");
 		ImGui::SameLine();
-		if (ImGui::SmallButton("Marc Pages Francesch"))
-			ShellExecuteA(NULL, "open", "https://github.com/marcpages2020", NULL, NULL, SW_SHOWNORMAL);
-
+		if (ImGui::SmallButton("Roger Pérez i Romera"))
+			ShellExecuteA(NULL, "open", "https://github.com/Rugiacreed", NULL, NULL, SW_SHOWNORMAL);
+		ImGui::SameLine();
+		if (ImGui::SmallButton("Josep Sànchez Arbona"))
+			ShellExecuteA(NULL, "open", "https://github.com/daskza19", NULL, NULL, SW_SHOWNORMAL);
 
 		ImGui::Spacing();
 		ImGui::Separator();
