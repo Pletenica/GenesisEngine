@@ -65,7 +65,7 @@ update_status ModuleScene::Update(float dt)
 
 	HandleInput();
 
-	root->Update();
+	root->Update(dt);
 
 	return UPDATE_CONTINUE;
 }

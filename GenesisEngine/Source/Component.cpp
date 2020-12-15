@@ -12,7 +12,7 @@ Component::~Component()
     _gameObject = nullptr;
 }
 
-void Component::Update(){}
+void Component::Update(float dt){}
 
 void Component::Enable() { enabled = true; }
 

@@ -233,13 +233,18 @@
     <ClCompile Include="ComponentParticleSystem.cpp">
       <Filter>GameObjects &amp; Components</Filter>
     </ClCompile>
-    <ClCompile Include="WindowEmitter.cpp">
-      <Filter>EditorWindows\ParticlesWindows</Filter>
+    <ClCompile Include="ComponentBillboard.cpp">
+      <Filter>GameObjects &amp; Components</Filter>
     </ClCompile>
     <ClCompile Include="WindowParticles.cpp">
-      <Filter>EditorWindows\ParticlesWindows</Filter>
+      <Filter>EditorWindows</Filter>
     </ClCompile>
-    <ClCompile Include="ComponentBillboard.cpp" />
+    <ClCompile Include="ParticlesEmitter.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticlesBase.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -588,14 +593,17 @@
     <ClInclude Include="ComponentParticleSystem.h">
       <Filter>GameObjects &amp; Components</Filter>
     </ClInclude>
-    <ClInclude Include="WindowEmitter.h">
-      <Filter>EditorWindows\ParticlesWindows</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowParticles.h">
-      <Filter>EditorWindows\ParticlesWindows</Filter>
-    </ClInclude>
     <ClInclude Include="ComponentBillboard.h">
       <Filter>GameObjects &amp; Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticlesEmitter.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowParticles.h">
+      <Filter>EditorWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticlesBase.h">
+      <Filter>Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -653,8 +661,8 @@
     <Filter Include="Libs\parson">
       <UniqueIdentifier>{03cd38a1-3ea2-4234-89ff-3f9057e2f643}</UniqueIdentifier>
     </Filter>
-    <Filter Include="EditorWindows\ParticlesWindows">
-      <UniqueIdentifier>{896fe1dc-0545-486d-a1dd-85b13aecd39f}</UniqueIdentifier>
+    <Filter Include="Particles">
+      <UniqueIdentifier>{9ee209ed-b65d-4737-bec5-a1794301e33b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

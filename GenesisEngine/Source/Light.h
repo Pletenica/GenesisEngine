@@ -15,7 +15,7 @@ public:
 	~Light();
 
 	void Init();
-	void Update() override;
+	void Update(float dt) override;
 	void SetPos(float x, float y, float z);
 	void Active(bool active);
 	void Render();

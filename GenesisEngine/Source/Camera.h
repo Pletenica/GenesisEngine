@@ -16,7 +16,7 @@ public:
 	Camera(GameObject* gameObject);
 	~Camera();
 
-	void Update() override;
+	void Update(float dt) override;
 	void OnEditor() override;
 
 	void Save(GnJSONArray& save_array) override;

@@ -41,7 +41,7 @@ Camera::Camera(GameObject* gameObject) : Component(gameObject), _aspectRatio(16.
 
 Camera::~Camera(){}
 
-void Camera::Update()
+void Camera::Update(float dt)
 {
 	_frustum.pos = _gameObject->GetTransform()->GetPosition();
 	

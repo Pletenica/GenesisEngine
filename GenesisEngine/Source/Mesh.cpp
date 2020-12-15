@@ -71,7 +71,7 @@ AABB GnMesh::GetAABB()
 	return _AABB;
 }
 
-void GnMesh::Update()
+void GnMesh::Update(float dt)
 {
  	Render();
 }

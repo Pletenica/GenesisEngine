@@ -196,6 +196,8 @@
     <ClInclude Include="ModuleResources.h" />
     <ClInclude Include="ModuleScene.h" />
     <ClInclude Include="ModuleWindow.h" />
+    <ClInclude Include="ParticlesBase.h" />
+    <ClInclude Include="ParticlesEmitter.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceMaterial.h" />
     <ClInclude Include="ResourceMesh.h" />
@@ -208,7 +210,6 @@
     <ClInclude Include="WindowAbout.h" />
     <ClInclude Include="WindowAssets.h" />
     <ClInclude Include="WindowConfiguration.h" />
-    <ClInclude Include="WindowEmitter.h" />
     <ClInclude Include="WindowHierarchy.h" />
     <ClInclude Include="WindowImport.h" />
     <ClInclude Include="WindowInspector.h" />
@@ -281,6 +282,8 @@
     <ClCompile Include="ModuleResources.cpp" />
     <ClCompile Include="ModuleScene.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
+    <ClCompile Include="ParticlesBase.cpp" />
+    <ClCompile Include="ParticlesEmitter.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceMaterial.cpp" />
     <ClCompile Include="ResourceMesh.cpp" />
@@ -293,7 +296,6 @@
     <ClCompile Include="WindowAbout.cpp" />
     <ClCompile Include="WindowAssets.cpp" />
     <ClCompile Include="WindowConfiguration.cpp" />
-    <ClCompile Include="WindowEmitter.cpp" />
     <ClCompile Include="WindowHierarchy.cpp" />
     <ClCompile Include="WindowImport.cpp" />
     <ClCompile Include="WindowInspector.cpp" />

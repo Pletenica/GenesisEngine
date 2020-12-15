@@ -35,7 +35,7 @@ Transform::Transform(float3 position, Quat rotation, float3 scale) : Component()
 
 Transform::~Transform() {}
 
-void Transform::Update() {}
+void Transform::Update(float dt) {}
 
 void Transform::OnEditor()
 {

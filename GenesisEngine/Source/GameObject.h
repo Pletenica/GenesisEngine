@@ -21,7 +21,7 @@ public:
 	GameObject(ComponentType component);
 	~GameObject();
 
-	void Update();
+	void Update(float dt);
 	void OnEditor();
 
 	void Save(GnJSONArray& save_array);

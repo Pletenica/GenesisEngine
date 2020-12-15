@@ -24,7 +24,7 @@ public:
 	ComponentBillboard(GameObject* gameObject);
 	~ComponentBillboard();
 
-	void Update() override;
+	void Update(float dt) override;
 	virtual void OnEditor() override;
 
 private:

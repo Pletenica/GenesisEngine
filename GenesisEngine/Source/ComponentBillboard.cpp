@@ -22,7 +22,7 @@ ComponentBillboard::~ComponentBillboard()
 
 }
 
-void ComponentBillboard::Update()
+void ComponentBillboard::Update(float dt)
 {
 	//TODO: enough for now, change it to assign a camera in the inspector
 	if (sceneCamera == nullptr)

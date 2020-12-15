@@ -1,7 +1,7 @@
 {
     "Game Objects": [
         {
-            "UUID": 1735415644,
+            "UUID": 1300139010,
             "Parent UUID": 0,
             "Name": "Root",
             "Components": [
@@ -28,7 +28,7 @@
         },
         {
             "UUID": 1840464342,
-            "Parent UUID": 1735415644,
+            "Parent UUID": 1300139010,
             "Name": "rayman",
             "Components": [
                 {
@@ -124,7 +124,7 @@
         },
         {
             "UUID": 1425632903,
-            "Parent UUID": 1735415644,
+            "Parent UUID": 1300139010,
             "Name": "street environment_v01",
             "Components": [
                 {
@@ -542,11 +542,11 @@
                     "Position": [
                         -19.439706802368164,
                         32.061729431152344,
-                        -1.1038082448067144e-08
+                        0
                     ],
                     "Rotation": [
-                        1.9340387450284767e-21,
-                        2.8421709430404007e-14,
+                        0,
+                        0,
                         1,
                         -4.3711388286737929e-08
                     ],
@@ -1368,8 +1368,8 @@
             ]
         },
         {
-            "UUID": 1630459267,
-            "Parent UUID": 1735415644,
+            "UUID": 647762984,
+            "Parent UUID": 1300139010,
             "Name": "Main Camera",
             "Components": [
                 {

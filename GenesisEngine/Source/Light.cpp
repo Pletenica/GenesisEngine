@@ -24,7 +24,7 @@ void Light::Init()
 	glLightfv(ref, GL_DIFFUSE, &diffuse);
 }
 
-void Light::Update()
+void Light::Update(float dt)
 {
 	Render();
 }

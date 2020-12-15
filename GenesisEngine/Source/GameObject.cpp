@@ -54,7 +54,7 @@ GameObject::~GameObject()
 	UUID = 0;
 }
 
-void GameObject::Update()
+void GameObject::Update(float dt)
 {
 	if (enabled)
 	{
@@ -69,11 +69,11 @@ void GameObject::Update()
 					GenerateAABB(mesh);
 
 					if(App->renderer3D->IsInsideCameraView(_AABB))
-						mesh->Update();
+						mesh->Update(dt);
 				}
 				else
 				{
-					components[i]->Update();
+					components[i]->Update(dt);
 				}
 			}
 		}
@@ -81,7 +81,7 @@ void GameObject::Update()
 		//Update Children
 		for (size_t i = 0; i < children.size(); i++)
 		{
-			children[i]->Update();
+			children[i]->Update(dt);
 		}
 	}
 }

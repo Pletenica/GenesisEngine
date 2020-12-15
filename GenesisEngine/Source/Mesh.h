@@ -25,7 +25,7 @@ public:
 	void GenerateAABB();
 	AABB GetAABB();
 
-	virtual void Update() override;
+	virtual void Update(float dt) override;
 	virtual void Render();
 	virtual void OnEditor() override;
 

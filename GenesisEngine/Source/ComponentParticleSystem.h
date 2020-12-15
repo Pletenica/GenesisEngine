@@ -5,7 +5,8 @@
 #include "Material.h"
 
 #include "MathGeoLib/include/MathGeoLib.h"
-#include "WindowEmitter.h"
+#include "ParticlesEmitter.h"
+#include "ParticlesBase.h"
 #include "WindowParticles.h"
 
 class ResourceMesh;
@@ -20,19 +21,21 @@ public:
 	ComponentParticleSystem(GameObject* gameObject);
 	virtual ~ComponentParticleSystem();
 
-	virtual void Update() override;
+	virtual void Update(float dt) override;
 	void Reset();
 	virtual void OnEditor() override;
 
 	void SetResourceUID(uint UID) override;
 	Resource* GetResource(ResourceType type) override;
 
+	void SaveEmitterSettings(const char* _path);
+	void LoadEmitterSettings(const char* _path);
+	void SaveParticleSettings(const char* _path);
+	void LoadParticleSettings(const char* _path);
+
 public:
-	std::string emitterName;
-	std::string particleName;
+	ParticlesEmitter emitter;
 
 private:
 	ResourceMesh* _resource;
-	WindowEmitter* emiterWindow;
-	WindowParticles* particlesWindow;
 };

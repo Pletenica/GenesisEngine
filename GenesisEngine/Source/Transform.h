@@ -13,7 +13,7 @@ public:
 	Transform(float3 position, Quat rotation, float3 scale);
 	~Transform();
 
-	void Update() override;
+	void Update(float dt) override;
 	void OnEditor() override;
 
 	void Save(GnJSONArray& save_array) override;
