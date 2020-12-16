@@ -3,9 +3,11 @@
 #include "MathGeoLib/include/Algorithm/Random/LCG.h"
 #include "Glew\include\glew.h"
 #include "Globals.h"
+#include "Application.h"
 
 ParticlesEmitter::ParticlesEmitter()
 {
+	_particlesConfig._texture = dynamic_cast<ResourceTexture*>(App->resources->RequestResource(App->resources->Find("Assets/EngineAssets/ParticleBase.png")));
 	ResetEmitterShape();
 }
 

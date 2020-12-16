@@ -27,9 +27,8 @@ public:
 	virtual void Update(float dt) override;
 	void Reset();
 	virtual void OnEditor() override;
-
-	void SetResourceUID(uint UID) override;
-	Resource* GetResource(ResourceType type) override;
+	void CreateWindowToLoad(bool _isEmitterSettings);
+	void DrawDirectoryRecursive(const char* directory, bool _isEmitterSettings);
 
 	void SaveEmitterSettings(const char* _path);
 	void LoadEmitterSettings(const char* _path);
@@ -41,4 +40,8 @@ public:
 
 private:
 	ResourceMesh* _resource;
+	char selected_folder[256];
+	char selected_file[256];
+	bool openLoadWindow = false;
+	bool toLoadEmitter = false;
 };

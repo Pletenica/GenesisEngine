@@ -324,25 +324,20 @@ void WindowParticles::UpdateEmitterInWindow(ParticlesEmitter& _emitter)
 
 void WindowParticles::CreateWindowToSelectNewTexture()
 {
-	const char* filter_extension = ".dds";
-	const char* from_dir = "Library/";
+	const char* filter_extension = ".png";
+	const char* from_dir = "Assets/";
 	selected_file[0] = '\0';
 	selected_folder[0] = '\0';
 
 	ImGui::OpenPopup("Load File");
-	if (ImGui::BeginPopupModal("Load File", nullptr))
+
+	if (ImGui::BeginPopupModal("Load File", nullptr, ImGuiWindowFlags_::ImGuiWindowFlags_NoResize))
 	{
 		ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 5.0f);
 		ImGui::BeginChild("File Browser", ImVec2(0, 300), true);
 		DrawDirectoryRecursive(from_dir, filter_extension);
 		ImGui::EndChild();
 		ImGui::PopStyleVar();
-
-		if (ImGui::Button("Ok", ImVec2(50, 20))) {
-			particlesConf->_texture = dynamic_cast<ResourceTexture*>(App->resources->RequestResource(App->resources->Find(selected_file)));
-			openSelectionTex = false;
-		}
-		ImGui::SameLine();
 
 		if (ImGui::Button("Cancel", ImVec2(50, 20)))
 			openSelectionTex = false;
@@ -389,14 +384,15 @@ void WindowParticles::DrawDirectoryRecursive(const char* directory, const char* 
 
 		bool ok = true;
 
-		if (filter_extension && str.find(filter_extension) == std::string::npos)
-			ok = false;
-
 		flags = ImGuiTreeNodeFlags_Leaf;
 
 		std::string complete_path = std::string(directory) + "/" + str;
 		if (strcmp(selected_file, complete_path.c_str()) == 0)
 			flags |= ImGuiTreeNodeFlags_Selected;
+
+		std::string lastExtension = complete_path.substr(complete_path.find_last_of("."));
+		if (lastExtension != ".png" && lastExtension != ".PNG" ) ok = false;
+
 
 		if (ok && ImGui::TreeNodeEx(str.c_str(), flags))
 		{
