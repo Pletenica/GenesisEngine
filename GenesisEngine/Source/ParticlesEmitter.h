@@ -6,6 +6,7 @@
 #include "MathGeoLib/include/Math/float4.h"
 #include "MathGeoLib/include/Geometry/Sphere.h"
 #include "MathGeoLib/include/Geometry/Circle.h"
+#include "ResourceTexture.h"
 
 class ParticlesBase;
 
@@ -52,14 +53,17 @@ struct ParticlesConfig {
 	std::string particlesName = "Default Particle Name";
 	int animationColumns = 1;
 	int animationRows = 1;
-	float minSize = 0;
-	float maxSize = 1;
+	float minInitSize = 0;
+	float maxInitSize = 1;
+	float minFinalSize = 0;
+	float maxFinalSize = 1;
 	float4 initStateColor = float4(1, 1, 1, 1);
 	float4 finalStateColor = float4(1, 1, 1, 1);
 
 	int textureHeight = 0;
 	int textureWeight = 0;
 	int textureID = 0;
+	ResourceTexture* _texture=nullptr;
 };
 
 class ParticlesEmitter {
@@ -67,15 +71,19 @@ public:
 	ParticlesEmitter();
 	~ParticlesEmitter();
 
+	//Debug Emitter Draw
 	void DrawEmitter();
 	void DrawEmitterAABB();
-
 	void DrawSphere();
 	void DrawSemiSphere();
 	void DrawCone();
 	void DrawCircle();
 
+	//Emitter Set Values
 	void SetDefaultEmitterVariables();
+	void SetNewTextureParticles(int _textureID);
+
+	//Emitter Actions
 	void InstantiateNewParticle();
 	void Play(float dt);
 	void UpdateEmitter(float dt);

@@ -18,7 +18,7 @@ public:
 	void Load(GnJSONObj& base_object) override;
 
 	uint GetID();
-	int GeWidth();
+	int GetWidth();
 	int GetHeight();
 	GLubyte* GetData();
 	uint GetGpuID();

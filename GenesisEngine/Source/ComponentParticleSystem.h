@@ -9,6 +9,9 @@
 #include "ParticlesBase.h"
 #include "WindowParticles.h"
 
+#define EMITTERSAVEEXTENSION ".emittersettings"
+#define PARTICLESAVEEXTENSION ".particlessettings"
+
 class ResourceMesh;
 
 typedef float GLfloat;

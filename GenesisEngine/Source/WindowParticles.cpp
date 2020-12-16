@@ -1,6 +1,9 @@
 #include "WindowParticles.h"
 #include "Application.h"
 #include "Editor.h"
+#include <algorithm>
+#include "FileSystem.h"
+#include "ResourceTexture.h"
 
 WindowParticles::WindowParticles()
 {
@@ -25,8 +28,10 @@ void WindowParticles::Draw()
 		ImGui::Begin("Particle Settings Window", (bool*)false, ImGuiWindowFlags_::ImGuiWindowFlags_NoResize);
 		ImGui::Text("Particle Name: ");
 		ImGui::SameLine();
-		char* bufParticleName = (char*)particlesConf->particlesName.c_str();
-		ImGui::InputText("##particleName", bufParticleName, 64, ImGuiInputTextFlags_EnterReturnsTrue);
+		const char* bufParticleName = particlesConf->particlesName.c_str();
+		if(ImGui::InputText("##particleName", (char*)bufParticleName, 64, ImGuiInputTextFlags_EnterReturnsTrue)) {
+			particlesConf->particlesName = bufParticleName;
+		}
 
 		//Print First Module (Particle Animation Info)
 		ImGui::BeginChild("Animation Particle", ImVec2(sizeUpChildsWidth, sizeUpChildsHeight), true, ImGuiWindowFlags_::ImGuiWindowFlags_NoDocking);
@@ -48,8 +53,10 @@ void WindowParticles::Draw()
 		/////////////// Emitter Settings ///////////////
 		ImGui::Text("Emitter Name: ");
 		ImGui::SameLine();
-		char* bufEmitterName = (char*)emitterConf->emitterName.c_str();
-		ImGui::InputText("##emitterName", bufEmitterName, 64, ImGuiInputTextFlags_EnterReturnsTrue);
+		const char* bufEmitterName = emitterConf->emitterName.c_str();
+		if (ImGui::InputText("##emitterName", (char*)bufEmitterName, 64, ImGuiInputTextFlags_EnterReturnsTrue)) {
+			emitterConf->emitterName = bufEmitterName;
+		}
 
 		//Print First Module (Emitter form info)
 		ImGui::BeginChild("Emitter Form", ImVec2(sizeDownChildsWidth-170, sizeDownChildsHeight), true, ImGuiWindowFlags_::ImGuiWindowFlags_NoDocking);
@@ -63,6 +70,11 @@ void WindowParticles::Draw()
 		ImGui::EndChild();
 
 		ImGui::End();
+
+
+		if (openSelectionTex == true) {
+			CreateWindowToSelectNewTexture();
+		}
 	}
 }
 
@@ -71,7 +83,7 @@ void WindowParticles::DrawParticlesAnimationProperties()
 	ImGui::TextColored(textColor, "PARTICLE TEXTURE");
 	//Button to import another Particle Image
 	if (ImGui::Button("Import Texture", ImVec2(130, 30))) {
-
+		openSelectionTex = true;
 	}
 
 	//Draw Image
@@ -87,7 +99,12 @@ void WindowParticles::DrawParticlesAnimationProperties()
 		textureWeight = contentRegion.x;
 		textureHeight = particlesConf->textureHeight * textureScale;
 	}
-	ImGui::Image((void*)particlesConf->textureID, ImVec2(textureWeight, textureHeight)); // * TextureData.TextureW & H * texSize if uncommented
+	if (particlesConf->_texture != nullptr) {
+		ImGui::Image((ImTextureID)particlesConf->_texture->GetGpuID(), ImVec2(textureWeight, textureHeight));
+	}
+	else {
+		ImGui::Image(0, ImVec2(textureWeight, textureHeight));
+	}
 
 	//Print Column and Row Lines
 	ImVec2 canvas_size = ImVec2(textureWeight, textureHeight);
@@ -124,13 +141,13 @@ void WindowParticles::DrawParticlesInitStateProperties()
 	ImGui::TextColored(textColor, "Min Size Particle");
 	ImGui::SameLine();
 	ImGui::PushItemWidth(80);
-	ImGui::DragFloat("##particleMinSizeInit", &particlesConf->minSize, 0.001f, 0.0f, 100.0f);
+	ImGui::DragFloat("##particleMinSizeInit", &particlesConf->minInitSize, 0.001f, 0.0f, 100.0f);
 	ImGui::PopItemWidth();
 
 	ImGui::TextColored(textColor, "Max Size Particle");
 	ImGui::SameLine();
 	ImGui::PushItemWidth(80);
-	ImGui::DragFloat("##particleMaxSizeInit", &particlesConf->maxSize, 0.001f, 0.0f, 100.0f);
+	ImGui::DragFloat("##particleMaxSizeInit", &particlesConf->maxInitSize, 0.001f, 0.0f, 100.0f);
 	ImGui::PopItemWidth();
 }
 
@@ -145,13 +162,13 @@ void WindowParticles::DrawParticlesFinalStateProperties()
 	ImGui::TextColored(textColor, "Min Size Particle");
 	ImGui::SameLine();
 	ImGui::PushItemWidth(80);
-	ImGui::DragFloat("##particleMinSizeFinal", &particlesConf->minSize, 0.001f, 0.0f, 100.0f);
+	ImGui::DragFloat("##particleMinSizeFinal", &particlesConf->minFinalSize, 0.001f, 0.0f, 100.0f);
 	ImGui::PopItemWidth();
 
 	ImGui::TextColored(textColor, "Max Size Particle");
 	ImGui::SameLine();
 	ImGui::PushItemWidth(80);
-	ImGui::DragFloat("##particleMaxSizeFinal", &particlesConf->maxSize, 0.001f, 0.0f, 100.0f);
+	ImGui::DragFloat("##particleMaxSizeFinal", &particlesConf->maxFinalSize, 0.001f, 0.0f, 100.0f);
 	ImGui::PopItemWidth();
 }
 
@@ -303,4 +320,97 @@ void WindowParticles::UpdateEmitterInWindow(ParticlesEmitter& _emitter)
 	emitterConf = &_emitter._emitterConfig;
 	particlesConf = &_emitter._particlesConfig;
 	particleEmitter = &_emitter;
+}
+
+void WindowParticles::CreateWindowToSelectNewTexture()
+{
+	const char* filter_extension = ".dds";
+	const char* from_dir = "Library/";
+	selected_file[0] = '\0';
+	selected_folder[0] = '\0';
+
+	ImGui::OpenPopup("Load File");
+	if (ImGui::BeginPopupModal("Load File", nullptr))
+	{
+		ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 5.0f);
+		ImGui::BeginChild("File Browser", ImVec2(0, 300), true);
+		DrawDirectoryRecursive(from_dir, filter_extension);
+		ImGui::EndChild();
+		ImGui::PopStyleVar();
+
+		if (ImGui::Button("Ok", ImVec2(50, 20))) {
+			particlesConf->_texture = dynamic_cast<ResourceTexture*>(App->resources->RequestResource(App->resources->Find(selected_file)));
+			openSelectionTex = false;
+		}
+		ImGui::SameLine();
+
+		if (ImGui::Button("Cancel", ImVec2(50, 20)))
+			openSelectionTex = false;
+
+		ImGui::EndPopup();
+	}
+}
+
+void WindowParticles::DrawDirectoryRecursive(const char* directory, const char* filter_extension)
+{
+	std::vector<std::string> files;
+	std::vector<std::string> dirs;
+	ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None;
+
+	std::string dir((directory) ? directory : "");
+
+	FileSystem::DiscoverFiles(dir.c_str(), files, dirs);
+
+	for (std::vector<std::string>::const_iterator it = dirs.begin(); it != dirs.end(); ++it)
+	{
+		std::string folder = (dir + (*it)).c_str();
+		if (strcmp(folder.c_str(), selected_folder) == 0)
+			flags = ImGuiTreeNodeFlags_Selected;
+
+		if (ImGui::TreeNodeEx(folder.c_str(), flags, "%s/", (*it).c_str()))
+		{
+			flags = ImGuiTreeNodeFlags_None;
+
+			if (ImGui::IsItemClicked())
+				sprintf_s(selected_folder, 256, "%s%s", directory, (*it).c_str());
+
+			DrawDirectoryRecursive((dir + (*it)).c_str(), filter_extension);
+			ImGui::TreePop();
+		}
+
+		flags = ImGuiTreeNodeFlags_None;
+	}
+
+	std::sort(files.begin(), files.end());
+
+	for (std::vector<std::string>::const_iterator it = files.begin(); it != files.end(); ++it)
+	{
+		const std::string& str = *it;
+
+		bool ok = true;
+
+		if (filter_extension && str.find(filter_extension) == std::string::npos)
+			ok = false;
+
+		flags = ImGuiTreeNodeFlags_Leaf;
+
+		std::string complete_path = std::string(directory) + "/" + str;
+		if (strcmp(selected_file, complete_path.c_str()) == 0)
+			flags |= ImGuiTreeNodeFlags_Selected;
+
+		if (ok && ImGui::TreeNodeEx(str.c_str(), flags))
+		{
+			if (ImGui::IsItemClicked()) {
+				sprintf_s(selected_file, 256, "%s/%s", dir.c_str(), str.c_str());
+
+				if (ImGui::IsMouseDoubleClicked(0))
+				{
+					particlesConf->_texture = dynamic_cast<ResourceTexture*>(App->resources->RequestResource(App->resources->Find(selected_file)));
+					openSelectionTex = false;
+				}
+			}
+
+			ImGui::TreePop();
+		}
+	}
 }

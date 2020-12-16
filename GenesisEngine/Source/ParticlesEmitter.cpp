@@ -156,6 +156,11 @@ void ParticlesEmitter::SetDefaultEmitterVariables()
 
 }
 
+void ParticlesEmitter::SetNewTextureParticles(int _textureID)
+{
+	_particlesConfig.textureID = _textureID;
+}
+
 void ParticlesEmitter::InstantiateNewParticle()
 {
 	ParticlesBase* _newParticle = new ParticlesBase();
