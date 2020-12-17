@@ -6,6 +6,8 @@
 #include "GnJSON.h"
 #include "FileSystem.h"
 #include <algorithm>
+#include "GameObject.h"
+#include "Transform.h"
 
 ComponentParticleSystem::ComponentParticleSystem()
 {
@@ -25,6 +27,11 @@ ComponentParticleSystem::~ComponentParticleSystem()
 void ComponentParticleSystem::Update(float dt)
 {
 	emitter.UpdateEmitter(dt);
+	Transform* _trans= (Transform*)_gameObject->GetComponent(ComponentType::TRANSFORM);
+	if (_trans != nullptr) {
+		emitter.SetEmitterTransform(_trans->GetLocalTransform());
+	}
+	
 }
 
 void ComponentParticleSystem::Reset()
@@ -36,7 +43,8 @@ void ComponentParticleSystem::OnEditor()
 	ImVec4 textColor = ImVec4(0.7f, 0, 1, 1);
 	if (ImGui::CollapsingHeader("Particle System", ImGuiTreeNodeFlags_DefaultOpen)){
 		ImGui::Indent();
-		if (ImGui::Checkbox("Enabled", &enabled)) {}
+		ImGui::Text("Enabled");
+		if (ImGui::Checkbox("##EnabledComponentParticleSystem", &enabled)) {}
 		
 		if (ImGui::Checkbox("Show Configuration Window", &App->editor->windows[PARTICLES_EDITOR_WINDOW]->visible)) {
 			WindowParticles* w_part = (WindowParticles*)App->editor->windows[PARTICLES_EDITOR_WINDOW];

@@ -6,6 +6,7 @@
 #include "MathGeoLib/include/Math/float4.h"
 #include "MathGeoLib/include/Geometry/Sphere.h"
 #include "MathGeoLib/include/Geometry/Circle.h"
+#include "MathGeoLib/include/Math/float4x4.h"
 #include "ResourceTexture.h"
 
 class ParticlesBase;
@@ -66,6 +67,27 @@ struct ParticlesConfig {
 	ResourceTexture* _texture=nullptr;
 };
 
+class ParticlePlane {
+public:
+	ParticlePlane();
+	~ParticlePlane();
+
+	void GenerateBuffers();
+	void DeleteBuffers();
+
+	uint id_vertices = 0;
+	uint num_vertices = 0;
+	float* vertices = nullptr;
+
+	uint id_indices = 0;
+	uint num_indices = 0;
+	uint* indices = nullptr;
+
+	uint id_normals = 0;
+	uint num_normals = 0;
+	float* normals;
+};
+
 class ParticlesEmitter {
 public:
 	ParticlesEmitter();
@@ -89,7 +111,14 @@ public:
 	void UpdateEmitter(float dt);
 
 	void ResetEmitterShape();
-	void PutNewConfigValues(EmitterConfig& eConfig, ParticlesConfig& pConfig);
+	void SetEmitterTransform(float4x4 _transform);
+
+	float3 GetEmitterPosition();
+	Quat GetEmitterRotation();
+	float3 GetEmitterScale();
+
+private:
+	void RandomizeNewPositionAndDirection(float3& _position, float3& _direction);
 
 public:
 	EmitterConfig _emitterConfig;
@@ -97,7 +126,10 @@ public:
 
 	EmitterBody emitterBody;
 	std::vector<ParticlesBase*> particles;
+	float4x4 transform = float4x4::identity;
 
 	float emitterActualLifetime = 0;
 	float actualTimeBetweenParticles = 0.f;
+
+	ParticlePlane particlesMesh = ParticlePlane();
 };

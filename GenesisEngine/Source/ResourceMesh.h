@@ -31,7 +31,7 @@ public:
 	uint texcoords_amount = 0;
 	float* texcoords = nullptr;
 
-	float* colors = nullptr;;
+	float* colors = nullptr;
 
 private:
 	bool _buffers_created;
