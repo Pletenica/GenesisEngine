@@ -55,17 +55,17 @@ void ParticlesEmitter::DrawSphere()
 
 	glBegin(GL_LINE_LOOP);
 	for (unsigned int i = 0; i < 15; i++)
-		glVertex3f(cos(angleToLines * i) * sphereRadius, 0.0f, sin(angleToLines * i) * sphereRadius);
+		glVertex3f(((cos(angleToLines * i) * sphereRadius)+ GetEmitterPosition().x), GetEmitterPosition().y, ((sin(angleToLines * i) * sphereRadius))+ GetEmitterPosition().z);
 	glEnd();
 
 	glBegin(GL_LINE_LOOP);
 	for (unsigned int i = 0; i < 15; i++)
-		glVertex3f(cos(angleToLines * i) * sphereRadius, sin(angleToLines * i) * sphereRadius, 0.0f);
+		glVertex3f(((cos(angleToLines * i) * sphereRadius)+ GetEmitterPosition().x), ((sin(angleToLines * i) * sphereRadius)+ GetEmitterPosition().y), GetEmitterPosition().z);
 	glEnd();
 
 	glBegin(GL_LINE_LOOP);
 	for (unsigned int i = 0; i < 15; i++)
-		glVertex3f(0.0f, sin(angleToLines * i) * sphereRadius, cos(angleToLines * i) * sphereRadius);
+		glVertex3f(GetEmitterPosition().x, ((sin(angleToLines * i) * sphereRadius)+ GetEmitterPosition().y), ((cos(angleToLines * i) * sphereRadius))+ GetEmitterPosition().z);
 	glEnd();
 
 	glLineWidth(1.0f);
@@ -78,22 +78,22 @@ void ParticlesEmitter::DrawSemiSphere()
 	glDisable(GL_LIGHTING);
 
 	float semisphereRadius = emitterBody._sphere.r;
-	float angleToLines = 360.0f / 15;
+	float angleToLines = 360.0f / 10;
 	angleToLines *= DEGTORAD;
 
 	glBegin(GL_LINE_LOOP);
-	for (unsigned int i = 0; i < 15; i++)
-		glVertex3f(cos(angleToLines * i) * semisphereRadius, 0.0f, sin(angleToLines * i) * semisphereRadius);
+	for (unsigned int i = 0; i < 10; i++)
+		glVertex3f(((cos(angleToLines * i) * semisphereRadius) + GetEmitterPosition().x), GetEmitterPosition().y, ((sin(angleToLines * i) * semisphereRadius))+ GetEmitterPosition().z);
 	glEnd();
 
 	glBegin(GL_LINE_LOOP);
-	for (unsigned int i = 0; i < 15 * 0.5f; i++)
-		glVertex3f(cos(angleToLines * i) * semisphereRadius, sin(angleToLines * i) * semisphereRadius, 0.0f);
+	for (unsigned int i = 0; i <= 5; i++)
+		glVertex3f(((cos(angleToLines * i) * semisphereRadius)+ GetEmitterPosition().x), ((sin(angleToLines * i) * semisphereRadius)+ GetEmitterPosition().y), GetEmitterPosition().z);
 	glEnd();
 
 	glBegin(GL_LINE_LOOP);
-	for (unsigned int i = 0; i < 15*0.5f; i++)
-		glVertex3f(0.0f, sin(angleToLines * i) * semisphereRadius, cos(angleToLines * i) * semisphereRadius);
+	for (unsigned int i = 0; i <= 5; i++)
+		glVertex3f(GetEmitterPosition().x, ((sin(angleToLines * i) * semisphereRadius)+ GetEmitterPosition().y), ((cos(angleToLines * i) * semisphereRadius))+ GetEmitterPosition().z);
 	glEnd();
 
 	glLineWidth(1.0f);
@@ -113,26 +113,26 @@ void ParticlesEmitter::DrawCone()
 
 	glBegin(GL_LINE_LOOP);
 	for (unsigned int i = 0; i < 20; i++)
-		glVertex3f(cos(angleToLines * i) * coneRadiusDown, 0.0f, sin(angleToLines * i) * coneRadiusDown);
+		glVertex3f(((cos(angleToLines * i) * coneRadiusDown)+ GetEmitterPosition().x), GetEmitterPosition().y, ((sin(angleToLines * i) * coneRadiusDown))+GetEmitterPosition().z);
 	glEnd();
 
 	glBegin(GL_LINE_LOOP);
 	for (unsigned int i = 0; i <= 20; i++)
-		glVertex3f(cos(angleToLines * i) * coneRadiusUp, coneHeight, sin(angleToLines * i) * coneRadiusUp);
+		glVertex3f((cos(angleToLines * i) * coneRadiusUp + GetEmitterPosition().x), (coneHeight + GetEmitterPosition().y), (sin(angleToLines * i) * coneRadiusUp) + GetEmitterPosition().z);
 	glEnd();
 
 	glBegin(GL_LINE_LOOP);
-	glVertex3f(coneRadiusDown, 0.0f, 0.0f);
-	glVertex3f(coneRadiusUp, coneHeight, 0.0f);
-	glVertex3f(-coneRadiusUp, coneHeight, 0.0f);
-	glVertex3f(-coneRadiusDown, 0.0f, 0.0f);
+	glVertex3f((GetEmitterPosition().x + coneRadiusDown), GetEmitterPosition().y, GetEmitterPosition().z);
+	glVertex3f((GetEmitterPosition().x + coneRadiusUp), (GetEmitterPosition().y + coneHeight), GetEmitterPosition().z);
+	glVertex3f((GetEmitterPosition().x -coneRadiusUp), (GetEmitterPosition().y + coneHeight), GetEmitterPosition().z);
+	glVertex3f((GetEmitterPosition().x -coneRadiusDown), GetEmitterPosition().y, GetEmitterPosition().z);
 	glEnd();
 
 	glBegin(GL_LINE_LOOP);
-	glVertex3f(0.0f, 0.0f, -coneRadiusDown);
-	glVertex3f(0.0f, coneHeight, -coneRadiusUp);
-	glVertex3f(0.0f, coneHeight, coneRadiusUp);
-	glVertex3f(0.0f, 0.0f, coneRadiusDown);
+	glVertex3f(GetEmitterPosition().x, GetEmitterPosition().y, (GetEmitterPosition().z - coneRadiusDown));
+	glVertex3f(GetEmitterPosition().x, (GetEmitterPosition().y + coneHeight), (GetEmitterPosition().z - coneRadiusUp));
+	glVertex3f(GetEmitterPosition().x, (GetEmitterPosition().y + coneHeight), (GetEmitterPosition().z + coneRadiusUp));
+	glVertex3f(GetEmitterPosition().x, GetEmitterPosition().y, (GetEmitterPosition().z + coneRadiusDown));
 	glEnd();
 
 	glLineWidth(1.0f);
@@ -150,7 +150,7 @@ void ParticlesEmitter::DrawCircle()
 
 	glBegin(GL_LINE_LOOP);
 	for (unsigned int i = 0; i < 15; i++)
-		glVertex3f(cos(angleToLines * i) * circleRadius, 0.0f, sin(angleToLines * i) * circleRadius);
+		glVertex3f(((cos(angleToLines * i) * circleRadius)+ GetEmitterPosition().x), GetEmitterPosition().y, ((sin(angleToLines * i) * circleRadius))+ GetEmitterPosition().z);
 	glEnd();
 
 	glLineWidth(1.0f);
@@ -166,6 +166,80 @@ void ParticlesEmitter::SetNewTextureParticles(int _textureID)
 {
 	_particlesConfig.textureID = _textureID;
 }
+
+/*
+void ParticlesEmitter::PutCorrectFrameAnimation()
+{
+	allcordenates.clear();
+	int col = _particlesConfig.animationColumns;
+	int row = _particlesConfig.animationRows;
+
+	float posx = 0.f;
+	float posy = 0.f;
+	float width = 1.0f;
+	float height = -1.0f;
+
+	int countrow = 0;
+	int countcol = 0;
+	
+	for (int i = 0; i < row * col; i++) {
+		float4 tempCoordinates = float4(0, 0, 1.f, -1.f);
+
+
+		tempCoordinates = float4(posx, posy, width, height);
+		allcordenates.push_back(tempCoordinates);
+	}
+
+
+	//Do the fors
+	//if (actualAnimationParticleFrame == 0) {
+	//	posx = 0;
+	//	posy = 0;
+	//}
+	//else {
+	//	posx = 0;
+	//	posy = 0;
+	//	width = 1;
+	//	height = -1;
+	//	countrow = 0;
+	//	countcol = 0;
+	//
+	//	bool exitrow = false;
+	//	while (exitrow == false) {
+	//		if (actualAnimationParticleFrame > (col + (col*(countrow)))) {
+	//			countrow++;
+	//		}
+	//		else {
+	//			exitrow = true;
+	//		}
+	//	}
+	//	countcol = actualAnimationParticleFrame - (countrow * col);
+	//}
+	//
+	//posx = (width / col) * (countcol);
+	//posy = (height / row) * (countrow);
+	//height = height / row;
+	//width = width / col;
+
+	//particlesMesh.texcoords = new float[8]
+	//{
+	//	posx, posy,
+	//	width, posy,
+	//	width, height,
+	//	posx, height
+	//};
+
+	particlesMesh.texcoords = new float[8]
+	{
+		allcordenates[actualAnimationParticleFrame].x, allcordenates[actualAnimationParticleFrame].y,
+		allcordenates[actualAnimationParticleFrame].w, allcordenates[actualAnimationParticleFrame].y,
+		allcordenates[actualAnimationParticleFrame].w, allcordenates[actualAnimationParticleFrame].z,
+		allcordenates[actualAnimationParticleFrame].x, allcordenates[actualAnimationParticleFrame].z
+	};
+
+	particlesMesh.GenerateBuffers();
+}
+*/
 
 void ParticlesEmitter::InstantiateNewParticle()
 {
@@ -187,36 +261,35 @@ void ParticlesEmitter::InstantiateNewParticle()
 	}
 }
 
-void ParticlesEmitter::Play(float dt)
-{
-
-}
-
 void ParticlesEmitter::UpdateEmitter(float dt)
 {
 	//Update Emitter Actual LifeTime
 	emitterActualLifetime += dt;
 	actualTimeBetweenParticles += dt;
-
+	
+	//GenerateTextureAnimation();
 	if (_emitterConfig.emitterLoop == false && emitterActualLifetime >= _emitterConfig.emitterMaxLifetime) {
 		isEmitterDead = true;
 	}
 
 	if (_emitterConfig.emitterLoop == true || isEmitterDead == false) {
-		//Condition if we can put a new particle
-		if (actualTimeBetweenParticles >= _emitterConfig.timeMaxBetweenParticles) {
-			//If the time between spawn particles is 0, spawn all the particles in one frame
-			if (_emitterConfig.timeMaxBetweenParticles == 0) {
-				for (int i = 0; i < _emitterConfig.particleMaxSpawn - particles.size(); i++) {
+		//Watch if emitter passed init time to do the things
+		if (emitterActualLifetime >= _emitterConfig.timeToInit) {
+			//Condition if we can put a new particle
+			if (actualTimeBetweenParticles >= _emitterConfig.timeMaxBetweenParticles) {
+				//If the time between spawn particles is 0, spawn all the particles in one frame
+				if (_emitterConfig.timeMaxBetweenParticles == 0) {
+					for (int i = 0; i < _emitterConfig.particleMaxSpawn - particles.size(); i++) {
+						InstantiateNewParticle();
+					}
+				}
+				//if not, spawn one particle
+				else {
 					InstantiateNewParticle();
 				}
-			}
-			//if not, spawn one particle
-			else {
-				InstantiateNewParticle();
-			}
 
-			actualTimeBetweenParticles = 0;
+				actualTimeBetweenParticles = 0;
+			}
 		}
 	}
 	//if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
@@ -228,7 +301,7 @@ void ParticlesEmitter::UpdateEmitter(float dt)
 		particles[i]->UpdateParticle(dt);
 	}
 
-	//Deletes the particles
+	//Delete the particles
 	for (int i = 0; i < particles.size(); i++) {
 		if (particles[i]->isToDelete()) {
 			particles.erase(particles.begin() + i);
@@ -317,18 +390,31 @@ void ParticlesEmitter::RandomizeNewPositionAndDirection(float3& _position, float
 		_direction = bottomPoint - upperPoint;
 	}
 	if (_emitterConfig.emitterForm == EmitterForm::EMITTER_FORM_SEMISPHERE) {
+		//Calculate Position
 		_position = float3::zero;
-		_direction = emitterBody._sphere.RandomPointOnSurface(randomizer);
-		_direction.y = abs(_direction.y);
+		//Calculate Direction
+		float pointx = randomizer.Float(-360 * DEGTORAD, 360 * DEGTORAD);
+		float pointy = randomizer.Float(-180 * DEGTORAD, 180 * DEGTORAD);
+		float pointz = randomizer.Float(-360 * DEGTORAD, 360 * DEGTORAD);
+		_direction = float3(pointx, pointy, pointz);
 	}
 	if (_emitterConfig.emitterForm == EmitterForm::EMITTER_FORM_SPHERE) {
+		//Calculate Position
 		_position = float3::zero;
-		_direction = emitterBody._sphere.RandomPointOnSurface(randomizer);
+		//Calculate Direction
+		float pointx = randomizer.Float(-360 * DEGTORAD, 360 * DEGTORAD);
+		float pointy = randomizer.Float(-360 * DEGTORAD, 360 * DEGTORAD);
+		float pointz = randomizer.Float(-360 * DEGTORAD, 360 * DEGTORAD);
+		_direction = float3(pointx, pointy, pointz);
 	}
 	if (_emitterConfig.emitterForm == EmitterForm::EMITTTER_FORM_CIRCLE) {
-		_position = float3::zero;
-		float point = randomizer.Float(0.f, 360 * DEGTORAD);
-		_direction = emitterBody._circle.GetPoint(point);
+		//Calculate Direction
+		float pointy = randomizer.Float(0.f, 180 * DEGTORAD);
+		_direction = float3(0, pointy, 0);
+		//Calculate position
+		float posx = randomizer.Float(-emitterBody._circle.r, emitterBody._circle.r);
+		float posz = randomizer.Float(-emitterBody._circle.r, emitterBody._circle.r);
+		_position = float3(posx,0,posz);
 	}
 
 	float3 pos, scale;
@@ -337,6 +423,10 @@ void ParticlesEmitter::RandomizeNewPositionAndDirection(float3& _position, float
 
 	Quat rot2 = rot * Quat(_direction, 1.f) * rot.Conjugated();
 	_direction = float3(rot2.x, rot2.y, rot2.z);
+
+	_position.x += GetEmitterPosition().x;
+	_position.y += GetEmitterPosition().y;
+	_position.z += GetEmitterPosition().z;
 }
 
 ParticlePlane::ParticlePlane()

@@ -1,6 +1,8 @@
 #include "ParticlesBase.h"
 #include "glew/include/glew.h"
 #include "ResourceTexture.h"
+#include "MathGeoLib/include/Math/MathFunc.h"
+#include "Application.h"
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -40,9 +42,11 @@ void ParticlesBase::UpdateParticle(float dt)
 	if (dt != 0) {
 		particleActualTime += dt;
 		InterpolatePosition(dt);
-		//InterpolateSize();
+		InterpolateColor();
+		InterpolateSize();
 	}
 
+	OrientateParticle();
 	//Draw the particle
 	DrawParticle();
 
@@ -55,7 +59,7 @@ void ParticlesBase::UpdateParticle(float dt)
 void ParticlesBase::DrawParticle()
 {
 	//Applicate Tint
-	glColor4f(initStateColor.x, initStateColor.y, initStateColor.z, initStateColor.w);
+	glColor4f(actualStateColor.x, actualStateColor.y, actualStateColor.z, actualStateColor.w);
 
 	glDisable(GL_CULL_FACE);
 	glEnable(GL_TEXTURE_2D);
@@ -108,15 +112,19 @@ void ParticlesBase::DrawParticle()
 	glDisable(GL_BLEND);
 }
 
-void ParticlesBase::ResetAnimation(int _columns, int _rows)
+void ParticlesBase::OrientateParticle()
 {
+	float4x4 ParticleMatrix = float4x4::FromTRS(particlePosition, particleRotation, particleScale * actualSize).Transposed();
 
+	float3 Direction = App->renderer3D->GetMainCamera()->GetPosition() - particlePosition;
+	particleRotation = Quat::LookAt(float3(0.0f, -1.0f, 0.0f), Direction, float3(0.0f, 1.0f, 0.0f), float3(0.0f, 0.0f, 1.0f));
 }
 
 void ParticlesBase::InterpolateSize()
 {
-	float firstpercent = particleActualTime / particleLifetime;
-	float secondpercent = 1 - firstpercent;
+	float percent = particleActualTime / particleLifetime;
+
+	actualSize = Lerp(initSize, finalSize, percent);
 }
 
 void ParticlesBase::InterpolatePosition(float dt)
@@ -126,5 +134,12 @@ void ParticlesBase::InterpolatePosition(float dt)
 
 void ParticlesBase::InterpolateColor()
 {
+	float percent = particleActualTime / particleLifetime;
 
+	float firstValue = Lerp(initStateColor.x, finalStateColor.x, percent);
+	float secondValue = Lerp(initStateColor.y, finalStateColor.y, percent);
+	float thirdValue = Lerp(initStateColor.z, finalStateColor.z, percent);
+	float alphaValue = Lerp(initStateColor.w, finalStateColor.w, percent);
+
+	actualStateColor = float4(firstValue, secondValue, thirdValue, alphaValue);
 }

@@ -29,13 +29,8 @@ bool ModuleScene::Start()
 	selectedGameObject = root;
 	root->SetName("Root");
 
-	//GameObject* baker_house = App->resources->RequestGameObject("Assets/Models/baker_house/BakerHouse.fbx");
-	//AddGameObject(baker_house);
-	
-	GameObject* rayman = App->resources->RequestGameObject("Assets/Models/Rayman/rayman.fbx");
-	AddGameObject(rayman);
-
 	GameObject* street_environment = App->resources->RequestGameObject("Assets/Models/street/Street environment_V01.fbx");
+	street_environment->SetName("Street");
 	AddGameObject(street_environment);
 	
 	GameObject* camera = new GameObject();
@@ -45,6 +40,12 @@ bool ModuleScene::Start()
 	AddGameObject(camera);
 	App->renderer3D->SetMainCamera((Camera*)camera->GetComponent(ComponentType::CAMERA));
 
+
+	GameObject* particle1 = new GameObject();
+	particle1->AddComponent(ComponentType::PARTICLE);
+	particle1->SetName("Particle 1");
+	particle1->GetTransform()->SetPosition(float3(0.0f, 1.0f, 0.0f));
+	AddGameObject(particle1);
 	//uint baker_house_texture = App->resources->ImportFile("Assets/Textures/Baker_house.png");
 	return ret;
 }

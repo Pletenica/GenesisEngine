@@ -17,6 +17,17 @@ ComponentBillboard::ComponentBillboard(GameObject* gameObject) : Component(gameO
 	alignmentOptions.push_back("Axis Z");
 }
 
+ComponentBillboard::ComponentBillboard()
+{
+	type = ComponentType::BILLBOARD;
+
+	alignmentOptions.push_back("Screen");
+	alignmentOptions.push_back("Camera");
+	alignmentOptions.push_back("Axis X");
+	alignmentOptions.push_back("Axis Y");
+	alignmentOptions.push_back("Axis Z");
+}
+
 ComponentBillboard::~ComponentBillboard()
 {
 
@@ -27,7 +38,7 @@ void ComponentBillboard::Update(float dt)
 	//TODO: enough for now, change it to assign a camera in the inspector
 	if (sceneCamera == nullptr)
 	{
-		sceneCamera = App->scene->GetActualCamera(App->scene->GetRoot()); //If the camera is null, check other time to camera in scene
+		sceneCamera = App->renderer3D->GetMainCamera(); //If the camera is null, check other time to camera in scene
 	}
 	if (sceneCamera == nullptr) {
 		return; //If the camera still null do nothing

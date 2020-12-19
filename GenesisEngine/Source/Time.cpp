@@ -31,8 +31,10 @@ void GnClock::Start()
 
 void GnClock::Stop()
 {
-	paused = false;
+	paused = true;
+	timeScale = 0.0f;
 	started = false;
+	timer.Stop();
 }
 
 void GnClock::Pause()

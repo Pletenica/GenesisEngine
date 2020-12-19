@@ -7,7 +7,9 @@
 #include "MathGeoLib/include/Geometry/Sphere.h"
 #include "MathGeoLib/include/Geometry/Circle.h"
 #include "MathGeoLib/include/Math/float4x4.h"
+#include "MathGeoLib/include/Math/float2.h"
 #include "ResourceTexture.h"
+#include "ComponentBillboard.h"
 
 class ParticlesBase;
 
@@ -52,8 +54,7 @@ struct EmitterConfig {
 
 struct ParticlesConfig {
 	std::string particlesName = "Default Particle Name";
-	int animationColumns = 1;
-	int animationRows = 1;
+
 	float minInitSize = 0;
 	float maxInitSize = 1;
 	float minFinalSize = 0;
@@ -64,7 +65,7 @@ struct ParticlesConfig {
 	int textureHeight = 0;
 	int textureWeight = 0;
 	int textureID = 0;
-	ResourceTexture* _texture=nullptr;
+	ResourceTexture* _texture = nullptr;
 };
 
 class ParticlePlane {
@@ -112,12 +113,10 @@ public:
 
 	//Emitter Actions
 	void InstantiateNewParticle();
-	void Play(float dt);
 	void UpdateEmitter(float dt);
 
 	void ResetEmitterShape();
 	void SetEmitterTransform(float4x4 _transform);
-
 	float3 GetEmitterPosition();
 	Quat GetEmitterRotation();
 	float3 GetEmitterScale();

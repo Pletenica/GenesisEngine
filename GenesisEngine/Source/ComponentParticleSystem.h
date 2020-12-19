@@ -35,6 +35,9 @@ public:
 	void SaveParticleSettings(const char* _path);
 	void LoadParticleSettings(const char* _path);
 
+	void Save(GnJSONArray& save_array) override;
+	void Load(GnJSONObj& load_object) override;
+
 public:
 	ParticlesEmitter emitter;
 

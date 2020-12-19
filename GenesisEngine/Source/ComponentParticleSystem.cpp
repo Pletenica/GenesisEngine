@@ -33,7 +33,6 @@ void ComponentParticleSystem::Update(float dt)
 	if (_trans != nullptr) {
 		emitter.SetEmitterTransform(_trans->GetLocalTransform());
 	}
-	
 }
 
 void ComponentParticleSystem::Reset()
@@ -282,8 +281,6 @@ void ComponentParticleSystem::SaveParticleSettings(const char* _path)
 	GnJSONObj _manager;
 
 	_manager.AddString("Particles Name", emitter._particlesConfig.particlesName.c_str());
-	_manager.AddInt("Animation Columns", emitter._particlesConfig.animationColumns);
-	_manager.AddInt("Animation Rows", emitter._particlesConfig.animationRows);
 
 	_manager.AddFloat4("Init State Color", emitter._particlesConfig.initStateColor);
 	_manager.AddFloat4("Final State Color", emitter._particlesConfig.finalStateColor);
@@ -317,8 +314,6 @@ void ComponentParticleSystem::LoadParticleSettings(const char* _path)
 	GnJSONObj _manager(emitterArray.GetObjectAt(0));
 
 	emitter._particlesConfig.particlesName = _manager.GetString("Particles Name", "");
-	emitter._particlesConfig.animationColumns = _manager.GetInt("Animation Columns");
-	emitter._particlesConfig.animationRows = _manager.GetInt("Animation Rows");
 
 	emitter._particlesConfig.initStateColor = _manager.GetFloat4("Init State Color");
 	emitter._particlesConfig.finalStateColor = _manager.GetFloat4("Final State Color");
@@ -333,4 +328,27 @@ void ComponentParticleSystem::LoadParticleSettings(const char* _path)
 	_manager.Release();
 	config.Release();
 	RELEASE_ARRAY(buffer);
+}
+
+void ComponentParticleSystem::Save(GnJSONArray& save_array)
+{
+	GnJSONObj save_object;
+
+	save_object.AddInt("Type", type);
+	std::string firstPart = "Library/Particles/Emitters/" + emitter._emitterConfig.emitterName + EMITTERSAVEEXTENSION;
+	save_object.AddString("Emitter Settings", firstPart.c_str());
+	SaveEmitterSettings(firstPart.c_str());
+	std::string secondpath = "Library/Particles/Base Particles/" + emitter._particlesConfig.particlesName + PARTICLESAVEEXTENSION;
+	save_object.AddString("Particles Settings", secondpath.c_str());
+	SaveParticleSettings(secondpath.c_str());
+
+	save_array.AddObject(save_object);
+}
+
+void ComponentParticleSystem::Load(GnJSONObj& load_object)
+{
+	std::string emitterPath = load_object.GetString("Emitter Settings", "Library/Particles/Emitters/Default Emitter Name.emittersettings");
+	LoadEmitterSettings(emitterPath.c_str());
+	std::string particlesPath = load_object.GetString("Particles Settings", "Library/Particles/Base Particles/Default Particle Name.particlessettings");
+	LoadParticleSettings(particlesPath.c_str());
 }

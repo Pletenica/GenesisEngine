@@ -23,7 +23,7 @@ public:
 
 	void UpdateParticle(float dt);
 	void DrawParticle();
-	void ResetAnimation(int _columns, int _rows);
+	void OrientateParticle();
 
 	void ToDelete() { _toDelete = true; };
 	bool isToDelete() { return _toDelete; };
@@ -43,16 +43,16 @@ public:
 	Quat particleRotation = Quat::identity;
 
 	float particleLifetime = 5;
-	float particleActualTime = 5;
+	float particleActualTime = 0;
 
 	float4 initStateColor = float4(1, 1, 1, 1);
 	float4 finalStateColor = float4(1, 1, 1, 1);
+	float4 actualStateColor = float4(1, 1, 1, 1);
 
 	ResourceTexture* texture = nullptr;
 	ParticlesEmitter* parent;
-
 	ParticlePlane* particleMesh;
-	Material* material;
+
 private:
 	bool _toDelete = false;
 };

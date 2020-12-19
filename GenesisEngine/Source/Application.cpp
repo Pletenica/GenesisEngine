@@ -175,8 +175,8 @@ void Application::StartGame()
 void Application::StopGame()
 {
 	in_game = false;
-	Time::gameClock.Stop();
 	Load("Library/Scenes/tmp.scene");
+	Time::gameClock.Stop();
 }
 
 void Application::AddModule(Module* mod)

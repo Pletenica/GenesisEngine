@@ -25,7 +25,7 @@ void WindowParticles::Draw()
 		float sizeDownChildsHeight = (windowSize.y-50) * 0.39f;
 
 		/////////////// Particle Settings ///////////////
-		ImGui::Begin("Particle Settings Window", (bool*)false, ImGuiWindowFlags_::ImGuiWindowFlags_NoResize);
+		ImGui::Begin("Particle Settings Window", (bool*)false, ImGuiWindowFlags_::ImGuiWindowFlags_NoDocking);
 		ImGui::Text("Particle Name: ");
 		ImGui::SameLine();
 		const char* bufParticleName = particlesConf->particlesName.c_str();
@@ -85,7 +85,6 @@ void WindowParticles::DrawParticlesAnimationProperties()
 	if (ImGui::Button("Import Texture", ImVec2(130, 30))) {
 		openSelectionTex = true;
 	}
-
 	//Draw Image
 	ImDrawList* draw_list = ImGui::GetWindowDrawList();
 	ImVec2 canvasPosition = ImGui::GetCursorScreenPos();            // ImDrawList API uses screen coordinates!
@@ -107,27 +106,31 @@ void WindowParticles::DrawParticlesAnimationProperties()
 	}
 
 	//Print Column and Row Lines
-	ImVec2 canvas_size = ImVec2(textureWeight, textureHeight);
-	for (int i = 1; i < particlesConf->animationColumns; i++)
-		draw_list->AddLine(ImVec2(canvasPosition.x + (canvas_size.x / particlesConf->animationColumns) * i, canvasPosition.y), ImVec2(canvasPosition.x + (canvas_size.x / particlesConf->animationColumns) * i, canvasPosition.y + canvas_size.y), IM_COL32(150, 150, 255, 255));
-	for (int i = 1; i < particlesConf->animationRows; i++)
-		draw_list->AddLine(ImVec2(canvasPosition.x, canvasPosition.y + (canvas_size.y / particlesConf->animationRows) * i), ImVec2(canvasPosition.x + canvas_size.x, canvasPosition.y + (canvas_size.y / particlesConf->animationRows) * i), IM_COL32(150, 150, 255, 255));
+	//ImVec2 canvas_size = ImVec2(textureWeight, textureHeight);
+	//for (int i = 1; i < particlesConf->animationColumns; i++)
+	//	draw_list->AddLine(ImVec2(canvasPosition.x + (canvas_size.x / particlesConf->animationColumns) * i, canvasPosition.y), ImVec2(canvasPosition.x + (canvas_size.x / particlesConf->animationColumns) * i, canvasPosition.y + canvas_size.y), IM_COL32(150, 150, 255, 255));
+	//for (int i = 1; i < particlesConf->animationRows; i++)
+	//	draw_list->AddLine(ImVec2(canvasPosition.x, canvasPosition.y + (canvas_size.y / particlesConf->animationRows) * i), ImVec2(canvasPosition.x + canvas_size.x, canvasPosition.y + (canvas_size.y / particlesConf->animationRows) * i), IM_COL32(150, 150, 255, 255));
+	//
+	////Columns and Rows Info
+	//ImGui::PushItemWidth(95);
+	//if (ImGui::SliderInt("Columns", &particlesConf->animationColumns, 1, 10))
+	//{
+	//	particleEmitter->GenerateTextureAnimation();
+	//}
+	//if (ImGui::SliderInt("Rows", &particlesConf->animationRows, 1, 10))
+	//{
+	//	particleEmitter->GenerateTextureAnimation();
+	//}
+	//ImGui::PopItemWidth();
 
-	//Columns and Rows Info
-	ImGui::PushItemWidth(95);
-	if (ImGui::SliderInt("Columns", &particlesConf->animationColumns, 1, 10))
-	{
-
-	}
-	if (ImGui::SliderInt("Rows", &particlesConf->animationRows, 1, 10))
-	{
-
-	}
-	ImGui::PopItemWidth();
-
-	ImGui::TextColored(textColor, "Total frames: ");
-	ImGui::SameLine();
-	ImGui::Text("%i", particlesConf->animationColumns * particlesConf->animationRows);
+	//ImGui::TextColored(textColor, "Total frames: ");
+	//ImGui::SameLine();
+	//ImGui::Text("%i", particlesConf->animationColumns * particlesConf->animationRows);
+	//
+	//ImGui::PushItemWidth(95);
+	//if (ImGui::SliderFloat("AnimationSpeed", &particlesConf->animationSpeed, 0, 10)){}
+	//ImGui::PopItemWidth();
 }
 
 void WindowParticles::DrawParticlesInitStateProperties()

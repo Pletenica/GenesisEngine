@@ -22,12 +22,11 @@ class ComponentBillboard : public Component
 {
 public:
 	ComponentBillboard(GameObject* gameObject);
+	ComponentBillboard();
 	~ComponentBillboard();
 
 	void Update(float dt) override;
 	virtual void OnEditor() override;
-
-private:
 	void PutTransformsFromVectors(Transform& transform, Transform& cameraTransform, float3& right, float3& up, float3& fwd) const;
 
 public:
