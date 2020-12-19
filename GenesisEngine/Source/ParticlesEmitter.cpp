@@ -194,13 +194,45 @@ void ParticlesEmitter::Play(float dt)
 
 void ParticlesEmitter::UpdateEmitter(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
-		InstantiateNewParticle();
+	//Update Emitter Actual LifeTime
+	emitterActualLifetime += dt;
+	actualTimeBetweenParticles += dt;
+
+	if (_emitterConfig.emitterLoop == false && emitterActualLifetime >= _emitterConfig.emitterMaxLifetime) {
+		isEmitterDead = true;
 	}
 
-	float deltaTime = Time::gameClock.deltaTime();
+	if (_emitterConfig.emitterLoop == true || isEmitterDead == false) {
+		//Condition if we can put a new particle
+		if (actualTimeBetweenParticles >= _emitterConfig.timeMaxBetweenParticles) {
+			//If the time between spawn particles is 0, spawn all the particles in one frame
+			if (_emitterConfig.timeMaxBetweenParticles == 0) {
+				for (int i = 0; i < _emitterConfig.particleMaxSpawn - particles.size(); i++) {
+					InstantiateNewParticle();
+				}
+			}
+			//if not, spawn one particle
+			else {
+				InstantiateNewParticle();
+			}
+
+			actualTimeBetweenParticles = 0;
+		}
+	}
+	//if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+	//	InstantiateNewParticle();
+	//}
+
+	//Update the particles
 	for (int i = 0; i < particles.size(); i++) {
 		particles[i]->UpdateParticle(dt);
+	}
+
+	//Deletes the particles
+	for (int i = 0; i < particles.size(); i++) {
+		if (particles[i]->isToDelete()) {
+			particles.erase(particles.begin() + i);
+		}
 	}
 
 	//Draw if emitter AABB show bool is true
@@ -235,8 +267,6 @@ void ParticlesEmitter::SetEmitterTransform(float4x4 _transform)
 {
 	transform = _transform;
 }
-
-
 
 float3 ParticlesEmitter::GetEmitterPosition()
 {
@@ -286,14 +316,17 @@ void ParticlesEmitter::RandomizeNewPositionAndDirection(float3& _position, float
 		_position = upperPoint;
 		_direction = bottomPoint - upperPoint;
 	}
-	else if (_emitterConfig.emitterForm == EmitterForm::EMITTER_FORM_SEMISPHERE) {
+	if (_emitterConfig.emitterForm == EmitterForm::EMITTER_FORM_SEMISPHERE) {
+		_position = float3::zero;
 		_direction = emitterBody._sphere.RandomPointOnSurface(randomizer);
 		_direction.y = abs(_direction.y);
 	}
-	else if (_emitterConfig.emitterForm == EmitterForm::EMITTER_FORM_SPHERE) {
+	if (_emitterConfig.emitterForm == EmitterForm::EMITTER_FORM_SPHERE) {
+		_position = float3::zero;
 		_direction = emitterBody._sphere.RandomPointOnSurface(randomizer);
 	}
-	else if (_emitterConfig.emitterForm == EmitterForm::EMITTTER_FORM_CIRCLE) {
+	if (_emitterConfig.emitterForm == EmitterForm::EMITTTER_FORM_CIRCLE) {
+		_position = float3::zero;
 		float point = randomizer.Float(0.f, 360 * DEGTORAD);
 		_direction = emitterBody._circle.GetPoint(point);
 	}
@@ -330,6 +363,14 @@ ParticlePlane::ParticlePlane()
 	};
 	num_normals = 4;
 
+	texcoords = new float[num_indices]
+	{
+		0.0f , 0.0f,
+		1.0f , 0.0f,
+		1.0f, -1.0f,
+		0.0f, -1.0f
+	};
+
 	GenerateBuffers();
 }
 
@@ -343,29 +384,10 @@ ParticlePlane::~ParticlePlane() {
 	RELEASE_ARRAY(indices);
 
 	glDeleteBuffers(1, &id_normals);
-	RELEASE_ARRAY(normals)
-	//if (vertices != nullptr)
-	//{
-	//	if (id_vertices > 0)
-	//		glDeleteBuffers(1, &id_vertices);
-	//	id_vertices = 0;
-	//	RELEASE_ARRAY(vertices);
-	//}
-	//num_indices = 0;
-	//if (indices != nullptr)
-	//{
-	//	if (id_indices > 0)
-	//		glDeleteBuffers(1, &id_indices);
-	//	id_indices = 0;
-	//	RELEASE_ARRAY(indices);
-	//}
-	//if (normals != nullptr)
-	//{
-	//	if (id_normals > 0)
-	//		glDeleteBuffers(1, &id_normals);
-	//	id_normals = 0;
-	//	RELEASE_ARRAY(normals);
-	//}
+	RELEASE_ARRAY(normals);
+
+	//glDeleteBuffers(1, &id_texcoords);
+	//RELEASE_ARRAY(texcoords);
 }
 
 void ParticlePlane::GenerateBuffers()
@@ -386,9 +408,9 @@ void ParticlePlane::GenerateBuffers()
 	glBufferData(GL_NORMAL_ARRAY, sizeof(float) * num_vertices * 3, normals, GL_STATIC_DRAW);
 
 	//textures
-	//glGenBuffers(1, (GLuint*)&(id_textures));
-	//glBindBuffer(GL_ARRAY_BUFFER, id_textures);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_vertices * 2, texcoords, GL_STATIC_DRAW);
+	glGenBuffers(1, (GLuint*)&(id_texcoords));
+	glBindBuffer(GL_ARRAY_BUFFER, id_texcoords);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_indices * 3, texcoords, GL_STATIC_DRAW);
 
 }
 

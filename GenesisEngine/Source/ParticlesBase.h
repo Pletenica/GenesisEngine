@@ -9,6 +9,7 @@
 #include "MathGeoLib/include/Math/Quat.h"
 #include "Globals.h"
 #include "ParticlesEmitter.h"
+#include "Material.h"
 
 class ParticlesEmitter;
 class ResourceTexture;
@@ -26,6 +27,10 @@ public:
 
 	void ToDelete() { _toDelete = true; };
 	bool isToDelete() { return _toDelete; };
+
+	void InterpolateSize();
+	void InterpolatePosition(float dt);
+	void InterpolateColor();
 
 public:
 	float initSize = 1;
@@ -47,7 +52,7 @@ public:
 	ParticlesEmitter* parent;
 
 	ParticlePlane* particleMesh;
-
+	Material* material;
 private:
 	bool _toDelete = false;
 };

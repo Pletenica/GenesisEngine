@@ -8,6 +8,7 @@
 #include <algorithm>
 #include "GameObject.h"
 #include "Transform.h"
+#include "Time.h"
 
 ComponentParticleSystem::ComponentParticleSystem()
 {
@@ -26,7 +27,8 @@ ComponentParticleSystem::~ComponentParticleSystem()
 
 void ComponentParticleSystem::Update(float dt)
 {
-	emitter.UpdateEmitter(dt);
+	float deltaTime = Time::gameClock.deltaTime();
+	emitter.UpdateEmitter(deltaTime);
 	Transform* _trans= (Transform*)_gameObject->GetComponent(ComponentType::TRANSFORM);
 	if (_trans != nullptr) {
 		emitter.SetEmitterTransform(_trans->GetLocalTransform());

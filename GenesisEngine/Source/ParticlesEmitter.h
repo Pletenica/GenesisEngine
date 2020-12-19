@@ -39,12 +39,12 @@ struct EmitterConfig {
 	AABB _emitterAABB;
 
 	int particleMaxSpawn = 5;
-	float particleMinSpeed = 0.f;
-	float particleMaxSpeed = 0.f;
+	float particleMinSpeed = 0.5f;
+	float particleMaxSpeed = 3.f;
 	float timeToInit = 0.f;
 
-	float particlesMinLifetime = 0;
-	float particlesMaxLifetime = 0;
+	float particlesMinLifetime = 2;
+	float particlesMaxLifetime = 7;
 	float emitterMaxLifetime = 5;
 	
 	float timeMaxBetweenParticles = 0.5f;
@@ -86,6 +86,11 @@ public:
 	uint id_normals = 0;
 	uint num_normals = 0;
 	float* normals;
+
+	uint id_texcoords = 0;
+	uint num_texcoords = 0;
+	float* texcoords;
+
 };
 
 class ParticlesEmitter {
@@ -132,4 +137,5 @@ public:
 	float actualTimeBetweenParticles = 0.f;
 
 	ParticlePlane particlesMesh = ParticlePlane();
+	bool isEmitterDead = false;
 };

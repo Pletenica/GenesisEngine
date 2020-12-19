@@ -245,7 +245,7 @@ void WindowParticles::DrawEmitterSettings()
 	//Emitter Particle Time Between then
 	ImGui::Text("Seconds between particles: ");
 	ImGui::SameLine();
-	if (ImGui::SliderFloat("##ParticlesPerSecondEmitter", &emitterConf->timeMaxBetweenParticles, 1, 10))
+	if (ImGui::SliderFloat("##ParticlesPerSecondEmitter", &emitterConf->timeMaxBetweenParticles, 0, 10))
 	{
 
 	}
