@@ -62,6 +62,7 @@ void ParticlesBase::DrawParticle()
 	glColor4f(actualStateColor.x, actualStateColor.y, actualStateColor.z, actualStateColor.w);
 
 	glDisable(GL_CULL_FACE);
+	glDisable(GL_LIGHTING);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_NORMALIZE);
 	glEnable(GL_BLEND);
@@ -116,8 +117,8 @@ void ParticlesBase::OrientateParticle()
 {
 	float4x4 ParticleMatrix = float4x4::FromTRS(particlePosition, particleRotation, particleScale * actualSize).Transposed();
 
-	float3 Direction = App->renderer3D->GetMainCamera()->GetPosition() - particlePosition;
-	particleRotation = Quat::LookAt(float3(0.0f, -1.0f, 0.0f), Direction, float3(0.0f, 1.0f, 0.0f), float3(0.0f, 0.0f, 1.0f));
+	float3 Direction = App->camera->GetCamera()->GetPosition() - particlePosition;
+	particleRotation = Quat::LookAt(float3(0.0f, 1.0f, 0.0f), Direction, float3(0.0f, 1.0f, 0.0f), float3(0.0f, 1.0f, 0.0f));
 }
 
 void ParticlesBase::InterpolateSize()
