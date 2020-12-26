@@ -296,10 +296,25 @@ void ParticlesEmitter::UpdateEmitter(float dt)
 	//	InstantiateNewParticle();
 	//}
 
+	std::multimap<float, ParticlesBase*> mapParticles;
+
 	//Update the particles
 	for (int i = 0; i < particles.size(); i++) {
 		particles[i]->UpdateParticle(dt);
+
+		float distance = App->camera->GetCamera()->GetFrustum().pos.DistanceSq(particles[i]->particlePosition);
+		mapParticles.emplace(distance, particles[i]);
 	}
+
+	//Draw the particles
+	for (auto i = mapParticles.rbegin(); i != mapParticles.rend(); i++) {
+		auto r = mapParticles.equal_range(i->first);
+		for (auto k = r.first; k != r.second; k++) {
+			k->second->DrawParticle();
+		}
+	}
+
+	mapParticles.clear();
 
 	//Delete the particles
 	for (int i = 0; i < particles.size(); i++) {
