@@ -455,10 +455,10 @@ ParticlePlane::ParticlePlane()
 
 	texcoords = new float[num_indices]
 	{
-		0.0f , -1.0f,
-		1.0f , -1.0f,
-		1.0f, 0.0f,
-		0.0f, 0.0f
+		0.0f , 0.0f,
+		1.0f , 0.0f,
+		1.0f, -1.0f,
+		0.0f, -1.0f
 	};
 
 	GenerateBuffers();
