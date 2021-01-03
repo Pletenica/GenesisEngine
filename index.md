@@ -1,37 +1,39 @@
-## Welcome to GitHub Pages
+![Pletenica](https://github.com/Pletenica/GenesisEngine/blob/master/Web/LogoPletenica++.png?raw=true)
 
-You can use the [editor on GitHub](https://github.com/Pletenica/GenesisEngine/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+### Must be known that Pletenica only have contributed and developed the particle system from this engine, the main core and other functionalities of this engine have been developed by Marc Pagès in his project Genesis Engine. We let the link to his repository below:
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+https://github.com/marcpages2020/GenesisEngine
 
-### Markdown
+### Pletenica have developed itself an engine too as a project but we have decided to use Marc's engine cause its better functionalities and advancements, although we will let the link to Overlevende Engine below:
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+https://github.com/Pletenica/Overlevende
 
-```markdown
-Syntax highlighted code block
+# Particle System
 
-# Header 1
-## Header 2
-### Header 3
+This is the third assignment of a subject(Videogame Engines) from the UPC CITM University. This system have been developed by two students trying their best to learn and contribute to the developing of videogames. 
+As said before you can find the two other assignments explained and done in the Pletenica's Overlevende Engine that consist of creating a simple geometry viewer supporting drag and drop files and orbital camera avoiding dependency from FBX for running our games, organize resources coherently and apply the minimal optimizations of a graphics engine.
 
-- Bulleted
-- List
+# Pletenica's Members
+![Josep](https://github.com/Pletenica/GenesisEngine/blob/master/Web/Pepote.png?raw=true)
 
-1. Numbered
-2. List
+* **Responsability:** Code
+* **Github account:** daskza19(https://github.com/daskza19)
 
-**Bold** and _Italic_ and `Code` text
+**Main work on:**
+* Partical System Base.
+* Own Format for the engine created.
+* Particle system component window.
+* Particle emitter.
+* Transparency Map.
 
-[Link](url) and ![Image](src)
-```
+![Yuye](https://github.com/Pletenica/GenesisEngine/blob/master/Web/Yuye.png?raw=true)
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+* **Responsability:** Code and Webpage
+* **Github account:** Rugiacreed(https://github.com/Rugiacreed)
 
-### Jekyll Themes
+**Main work on:**
+* Webpage.
+* Running loop smoke particles.
+* Rocket Simulator particles.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Pletenica/GenesisEngine/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
