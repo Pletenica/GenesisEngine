@@ -167,79 +167,38 @@ void ParticlesEmitter::SetNewTextureParticles(int _textureID)
 	_particlesConfig.textureID = _textureID;
 }
 
-/*
+
 void ParticlesEmitter::PutCorrectFrameAnimation()
 {
-	allcordenates.clear();
-	int col = _particlesConfig.animationColumns;
-	int row = _particlesConfig.animationRows;
-
-	float posx = 0.f;
-	float posy = 0.f;
-	float width = 1.0f;
-	float height = -1.0f;
-
-	int countrow = 0;
-	int countcol = 0;
-	
-	for (int i = 0; i < row * col; i++) {
-		float4 tempCoordinates = float4(0, 0, 1.f, -1.f);
-
-
-		tempCoordinates = float4(posx, posy, width, height);
-		allcordenates.push_back(tempCoordinates);
-	}
-
-
-	//Do the fors
-	//if (actualAnimationParticleFrame == 0) {
-	//	posx = 0;
-	//	posy = 0;
-	//}
-	//else {
-	//	posx = 0;
-	//	posy = 0;
-	//	width = 1;
-	//	height = -1;
-	//	countrow = 0;
-	//	countcol = 0;
-	//
-	//	bool exitrow = false;
-	//	while (exitrow == false) {
-	//		if (actualAnimationParticleFrame > (col + (col*(countrow)))) {
-	//			countrow++;
-	//		}
-	//		else {
-	//			exitrow = true;
-	//		}
-	//	}
-	//	countcol = actualAnimationParticleFrame - (countrow * col);
-	//}
-	//
-	//posx = (width / col) * (countcol);
-	//posy = (height / row) * (countrow);
-	//height = height / row;
-	//width = width / col;
-
-	//particlesMesh.texcoords = new float[8]
-	//{
-	//	posx, posy,
-	//	width, posy,
-	//	width, height,
-	//	posx, height
-	//};
-
-	particlesMesh.texcoords = new float[8]
+	animframes.clear();
+	int height = _particlesConfig._texture->GetHeight();
+	int width = _particlesConfig._texture->GetWidth();
+	float xincrement = width/_particlesConfig.animcolumn;
+	float yincrement= height / _particlesConfig.animrow;
+	float cx = 0;
+	float cy = 0;
+	for (size_t y = 0; y < _particlesConfig.animrow; y++)
 	{
-		allcordenates[actualAnimationParticleFrame].x, allcordenates[actualAnimationParticleFrame].y,
-		allcordenates[actualAnimationParticleFrame].w, allcordenates[actualAnimationParticleFrame].y,
-		allcordenates[actualAnimationParticleFrame].w, allcordenates[actualAnimationParticleFrame].z,
-		allcordenates[actualAnimationParticleFrame].x, allcordenates[actualAnimationParticleFrame].z
-	};
+		for (size_t x = 0; x < _particlesConfig.animcolumn; x++)
+		{
+			ImVec4 topush = NormalizeCoords(ImVec4(cx, cy,xincrement,yincrement), ImVec2(width, height));
+			animframes.push_back(topush);
 
-	particlesMesh.GenerateBuffers();
+			cx += xincrement;
+		}
+
+		cx = 0;
+		cy += yincrement;
+	}
+	actualframe = animframes[0];
 }
-*/
+
+ImVec4 ParticlesEmitter::NormalizeCoords(ImVec4 input, ImVec2 size)
+{
+
+	return ImVec4(input.x/size.x, fabsf((input.y/size.y)-1), input.z/size.x, (input.w / size.y));
+}
+
 
 void ParticlesEmitter::InstantiateNewParticle()
 {
@@ -316,6 +275,16 @@ void ParticlesEmitter::UpdateEmitter(float dt)
 	if (_emitterConfig.showEmitterForm == true) {
 		DrawEmitter();
 	}
+
+	if (!animframes.empty() && Time::gameClock.deltaTime() != 0) {
+		doraemon += Time::gameClock.deltaTime();
+		if (doraemon >= _particlesConfig.animspeed) {
+			(animframeID >= animframes.size() - 1) ? animframeID = 0 : animframeID++;
+			actualframe = animframes[animframeID];
+			doraemon = 0;
+		}
+	}
+	
 }
 
 void ParticlesEmitter::ResetEmitterShape()
@@ -439,11 +408,11 @@ ParticlePlane::ParticlePlane()
 	};
 	num_vertices = 4;
 
-	indices = new uint[6]{
-		0, 3, 2,
-		2, 1 ,0
+	indices = new uint[4]{
+		0, 1, 2,
+		3
 	};
-	num_indices = 6;
+	num_indices = 4;
 
 	normals = new float[num_vertices * 3]{
 		0.0f, 0.0f, 1.0f,

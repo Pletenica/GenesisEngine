@@ -116,11 +116,11 @@ void WindowParticles::DrawParticlesAnimationProperties()
 	ImGui::PushItemWidth(95);
 	if (ImGui::SliderInt("Columns", &particlesConf->animcolumn, 1, 10))
 	{
-		
+		particleEmitter->PutCorrectFrameAnimation();
 	}
 	if (ImGui::SliderInt("Rows", &particlesConf->animrow, 1, 10))
 	{
-		
+		particleEmitter->PutCorrectFrameAnimation();
 	}
 	ImGui::PopItemWidth();
 
@@ -129,7 +129,7 @@ void WindowParticles::DrawParticlesAnimationProperties()
 	ImGui::Text("%i", particlesConf->animcolumn * particlesConf->animrow);
 	
 	ImGui::PushItemWidth(95);
-	if (ImGui::SliderFloat("AnimationSpeed", &particlesConf->animspeed, 0, 10)){}
+	if (ImGui::SliderFloat("Time Between Frames", &particlesConf->animspeed, 0, 1)){}
 	ImGui::PopItemWidth();
 }
 

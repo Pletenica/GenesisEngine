@@ -29,9 +29,9 @@ bool ModuleScene::Start()
 	selectedGameObject = root;
 	root->SetName("Root");
 
-	GameObject* street_environment = App->resources->RequestGameObject("Assets/Models/street/Street environment_V01.fbx");
-	street_environment->SetName("Street");
-	AddGameObject(street_environment);
+	//GameObject* street_environment = App->resources->RequestGameObject("Assets/Models/street/Street environment_V01.fbx");
+	//street_environment->SetName("Street");
+	//AddGameObject(street_environment);
 	
 	GameObject* camera = new GameObject();
 	camera->AddComponent(ComponentType::CAMERA);

@@ -52,6 +52,7 @@ public:
 	ResourceTexture* texture = nullptr;
 	ParticlesEmitter* parent;
 	ParticlePlane* particleMesh;
+	
 
 private:
 	bool _toDelete = false;

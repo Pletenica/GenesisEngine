@@ -66,24 +66,25 @@ void ParticlesBase::DrawParticle()
 	glEnable(GL_NORMALIZE);
 	glEnable(GL_BLEND);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	//glEnableClientState(GL_VERTEX_ARRAY);
+	//glEnableClientState(GL_NORMAL_ARRAY);
+	//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	//vertices
-	glBindBuffer(GL_ARRAY_BUFFER, particleMesh->id_vertices);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	//glBindBuffer(GL_ARRAY_BUFFER, particleMesh->id_vertices);
+	//glVertexPointer(3, GL_FLOAT, 0, NULL);
 
 	//normals
-	glBindBuffer(GL_NORMAL_ARRAY, particleMesh->id_normals);
-	glNormalPointer(GL_FLOAT, 0, NULL);
+	//glBindBuffer(GL_NORMAL_ARRAY, particleMesh->id_normals);
+	//glNormalPointer(GL_FLOAT, 0, NULL);
 
 	//textures
-	glBindBuffer(GL_ARRAY_BUFFER, particleMesh->id_texcoords);
-	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+	//glBindBuffer(GL_ARRAY_BUFFER, particleMesh->id_texcoords);
+	//glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+	
 
 	//indices
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, particleMesh->id_indices);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, particleMesh->id_indices);
 
 	glPushMatrix();
 	float4x4 ParticleMatrix = float4x4::FromTRS(particlePosition, particleRotation, particleScale * actualSize).Transposed();
@@ -91,19 +92,31 @@ void ParticlesBase::DrawParticle()
 
 	glBindTexture(GL_TEXTURE_2D, texture->GetGpuID());
 
-	glDrawElements(GL_TRIANGLES, particleMesh->num_indices, GL_UNSIGNED_INT, NULL);
+	//glDrawElements(GL_QUADS, particleMesh->num_indices, GL_UNSIGNED_INT, NULL);
+	glBegin(GL_QUADS);
+
+	glTexCoord2f(parent->actualframe.x, parent->actualframe.y);
+	glVertex3f(0, 0, 0);
+	glTexCoord2f(parent->actualframe.x+parent->actualframe.z, parent->actualframe.y);
+	glVertex3f(1, 0, 0);
+	glTexCoord2f(parent->actualframe.x+ parent->actualframe.z, parent->actualframe.y+ parent->actualframe.w);
+	glVertex3f(1, 0, 1);
+	glTexCoord2f(parent->actualframe.x, parent->actualframe.y+ parent->actualframe.w);
+	glVertex3f(0, 0, 1);
+
+	glEnd();
 
 	glPopMatrix();
 
 	//clean buffers
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_NORMAL_ARRAY, 0);
-	glBindBuffer(GL_TEXTURE_COORD_ARRAY, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//glBindBuffer(GL_NORMAL_ARRAY, 0);
+	//glBindBuffer(GL_TEXTURE_COORD_ARRAY, 0);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindTexture(GL_TEXTURE_2D, 0);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	//
+	//glDisableClientState(GL_VERTEX_ARRAY);
+	//glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 

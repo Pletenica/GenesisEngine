@@ -329,7 +329,7 @@ void ComponentParticleSystem::LoadParticleSettings(const char* _path)
 	emitter._particlesConfig.animcolumn = _manager.GetInt("Columns");
 	emitter._particlesConfig.animrow = _manager.GetInt("Rows");
 	emitter._particlesConfig.animspeed = _manager.GetFloat("Speed");
-
+	emitter.PutCorrectFrameAnimation();
 	emitter._particlesConfig._texture = dynamic_cast<ResourceTexture*>(App->resources->RequestResource(_manager.GetInt("Texture UID", 0)));
 
 	_manager.Release();

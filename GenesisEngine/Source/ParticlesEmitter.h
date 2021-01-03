@@ -10,6 +10,8 @@
 #include "MathGeoLib/include/Math/float2.h"
 #include "ResourceTexture.h"
 #include "ComponentBillboard.h"
+#include "ImGui/imgui.h"
+
 
 class ParticlesBase;
 
@@ -36,6 +38,7 @@ struct EmitterConfig {
 	bool emitterLoop = true;
 	bool showEmitterAABB = false;
 	bool showEmitterForm = true;
+	
 
 	EmitterForm emitterForm = EmitterForm::EMITTER_FORM_CONE;
 	AABB _emitterAABB;
@@ -50,6 +53,7 @@ struct EmitterConfig {
 	float emitterMaxLifetime = 5;
 	
 	float timeMaxBetweenParticles = 0.5f;
+	
 };
 
 struct ParticlesConfig {
@@ -124,6 +128,11 @@ public:
 	float3 GetEmitterPosition();
 	Quat GetEmitterRotation();
 	float3 GetEmitterScale();
+	void PutCorrectFrameAnimation();
+	ImVec4 NormalizeCoords(ImVec4 input, ImVec2 size);
+	ImVec4 actualframe;
+	int animframeID = 0;
+	float doraemon = 0;
 
 private:
 	void RandomizeNewPositionAndDirection(float3& _position, float3& _direction);
@@ -141,4 +150,5 @@ public:
 
 	ParticlePlane particlesMesh = ParticlePlane();
 	bool isEmitterDead = false;
+	std::vector<ImVec4> animframes;
 };
