@@ -287,10 +287,14 @@ void ComponentParticleSystem::SaveParticleSettings(const char* _path)
 
 	_manager.AddInt("Texture UID", emitter._particlesConfig._texture->GetUID());
 
+
 	_manager.AddFloat("Min Init Size Particle", emitter._particlesConfig.minInitSize);
 	_manager.AddFloat("Max Init Size Particle", emitter._particlesConfig.maxInitSize);
 	_manager.AddFloat("Min Final Size Particle", emitter._particlesConfig.minFinalSize);
 	_manager.AddFloat("Max Final Size Particle", emitter._particlesConfig.maxFinalSize);
+	_manager.AddInt("Columns", emitter._particlesConfig.animcolumn);
+	_manager.AddInt("Rows", emitter._particlesConfig.animrow);
+	_manager.AddFloat("Speed", emitter._particlesConfig.animspeed);
 
 	gameObjects.AddObject(_manager);
 
@@ -322,6 +326,9 @@ void ComponentParticleSystem::LoadParticleSettings(const char* _path)
 	emitter._particlesConfig.maxInitSize = _manager.GetFloat("Max Init Size Particle");
 	emitter._particlesConfig.minFinalSize = _manager.GetFloat("Min Final Size Particle");
 	emitter._particlesConfig.maxFinalSize = _manager.GetFloat("Max Final Size Particle");
+	emitter._particlesConfig.animcolumn = _manager.GetInt("Columns");
+	emitter._particlesConfig.animrow = _manager.GetInt("Rows");
+	emitter._particlesConfig.animspeed = _manager.GetFloat("Speed");
 
 	emitter._particlesConfig._texture = dynamic_cast<ResourceTexture*>(App->resources->RequestResource(_manager.GetInt("Texture UID", 0)));
 

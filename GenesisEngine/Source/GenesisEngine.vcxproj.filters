@@ -605,9 +605,6 @@
     <ClInclude Include="ParticlesBase.h">
       <Filter>Particles</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Particles</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">

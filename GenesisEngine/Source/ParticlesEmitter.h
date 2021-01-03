@@ -66,6 +66,10 @@ struct ParticlesConfig {
 	int textureWeight = 0;
 	int textureID = 0;
 	ResourceTexture* _texture = nullptr;
+
+	int animcolumn = 1;
+	int animrow = 1;
+	float animspeed = 1.f;
 };
 
 class ParticlePlane {
