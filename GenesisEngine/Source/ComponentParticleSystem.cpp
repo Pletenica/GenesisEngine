@@ -28,7 +28,10 @@ ComponentParticleSystem::~ComponentParticleSystem()
 void ComponentParticleSystem::Update(float dt)
 {
 	float deltaTime = Time::gameClock.deltaTime();
-	emitter.UpdateEmitter(deltaTime);
+	
+	if (Time::gameClock.deltaTime() != 0) {
+		emitter.UpdateEmitter(deltaTime);
+	}
 	Transform* _trans= (Transform*)_gameObject->GetComponent(ComponentType::TRANSFORM);
 	if (_trans != nullptr) {
 		emitter.SetEmitterTransform(_trans->GetLocalTransform());

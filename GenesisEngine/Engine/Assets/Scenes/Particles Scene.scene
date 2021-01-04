@@ -1,7 +1,7 @@
 {
     "Game Objects": [
         {
-            "UUID": 1097130501,
+            "UUID": 1004036150,
             "Parent UUID": 0,
             "Name": "Root",
             "Components": [
@@ -28,7 +28,7 @@
         },
         {
             "UUID": 1678402620,
-            "Parent UUID": 1097130501,
+            "Parent UUID": 1004036150,
             "Name": "Street",
             "Components": [
                 {
@@ -1272,8 +1272,8 @@
             ]
         },
         {
-            "UUID": 1308570445,
-            "Parent UUID": 1097130501,
+            "UUID": 1051582821,
+            "Parent UUID": 1004036150,
             "Name": "Main Camera",
             "Components": [
                 {
@@ -1281,7 +1281,7 @@
                     "Position": [
                         0,
                         1,
-                        -5
+                        -101.99704742431641
                     ],
                     "Rotation": [
                         0,
@@ -1302,7 +1302,7 @@
                     "position": [
                         0,
                         1,
-                        -5
+                        -101.99704742431641
                     ],
                     "up": [
                         0,
@@ -1324,6 +1324,37 @@
                         -431602080,
                         -431602080
                     ]
+                }
+            ]
+        },
+        {
+            "UUID": 1067734893,
+            "Parent UUID": 1004036150,
+            "Name": "Particle 1",
+            "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        -32.879756927490234,
+                        6.9906363487243652,
+                        -43.273757934570312
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        0.76999998092651367,
+                        0.76999998092651367,
+                        0.76999998092651367
+                    ]
+                },
+                {
+                    "Type": 6,
+                    "Emitter Settings": "Library\/Particles\/Emitters\/Smokestack",
+                    "Particles Settings": "Library\/Particles\/Base Particles\/Default Particle Name.particlessettings"
                 }
             ]
         }

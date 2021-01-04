@@ -29,9 +29,9 @@ bool ModuleScene::Start()
 	selectedGameObject = root;
 	root->SetName("Root");
 
-	//GameObject* street_environment = App->resources->RequestGameObject("Assets/Models/street/Street environment_V01.fbx");
-	//street_environment->SetName("Street");
-	//AddGameObject(street_environment);
+	GameObject* street_environment = App->resources->RequestGameObject("Assets/Models/street/Street environment_V01.fbx");
+	street_environment->SetName("Street");
+	AddGameObject(street_environment);
 	
 	GameObject* camera = new GameObject();
 	camera->AddComponent(ComponentType::CAMERA);
@@ -46,7 +46,7 @@ bool ModuleScene::Start()
 	particle1->SetName("Particle 1");
 	particle1->GetTransform()->SetPosition(float3(0.0f, 1.0f, 0.0f));
 	AddGameObject(particle1);
-	//uint baker_house_texture = App->resources->ImportFile("Assets/Textures/Baker_house.png");
+	uint baker_house_texture = App->resources->ImportFile("Assets/Textures/Baker_house.png");
 	return ret;
 }
 
