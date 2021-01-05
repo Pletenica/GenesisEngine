@@ -42,7 +42,7 @@ public:
 	ParticlesEmitter emitter;
 
 private:
-	ResourceMesh* _resource;
+	//ResourceMesh* _resource = nullptr;
 	char selected_folder[256];
 	char selected_file[256];
 	bool openLoadWindow = false;

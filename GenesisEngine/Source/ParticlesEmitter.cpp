@@ -17,7 +17,7 @@ ParticlesEmitter::ParticlesEmitter()
 
 ParticlesEmitter::~ParticlesEmitter()
 {
-
+	particles.clear();
 }
 
 void ParticlesEmitter::DrawEmitter()
@@ -255,10 +255,25 @@ void ParticlesEmitter::UpdateEmitter(float dt)
 	//	InstantiateNewParticle();
 	//}
 
+	std::multimap<float, ParticlesBase*> mapParticles;
+
 	//Update the particles
 	for (int i = 0; i < particles.size(); i++) {
 		particles[i]->UpdateParticle(dt);
+
+		float distance = App->camera->GetCamera()->GetFrustum().pos.DistanceSq(particles[i]->particlePosition);
+		mapParticles.emplace(distance, particles[i]);
 	}
+
+	//Draw the particles
+	for (auto i = mapParticles.rbegin(); i != mapParticles.rend(); i++) {
+		auto r = mapParticles.equal_range(i->first);
+		for (auto k = r.first; k != r.second; k++) {
+			//k->second->DrawParticle();
+		}
+	}
+
+	mapParticles.clear();
 
 	//Delete the particles
 	for (int i = 0; i < particles.size(); i++) {
@@ -266,6 +281,7 @@ void ParticlesEmitter::UpdateEmitter(float dt)
 			particles.erase(particles.begin() + i);
 		}
 	}
+	
 
 	//Draw if emitter AABB show bool is true
 	if (_emitterConfig.showEmitterAABB == true) {
@@ -276,14 +292,14 @@ void ParticlesEmitter::UpdateEmitter(float dt)
 		DrawEmitter();
 	}
 
-	if (!animframes.empty() && Time::gameClock.deltaTime() != 0) {
-		doraemon += Time::gameClock.deltaTime();
-		if (doraemon >= _particlesConfig.animspeed) {
-			(animframeID >= animframes.size() - 1) ? animframeID = 0 : animframeID++;
-			actualframe = animframes[animframeID];
-			doraemon = 0;
-		}
-	}
+	//if (!animframes.empty() && Time::gameClock.deltaTime() != 0) {
+	//	doraemon += Time::gameClock.deltaTime();
+	//	if (doraemon >= _particlesConfig.animspeed) {
+	//		(animframeID >= animframes.size() - 1) ? animframeID = 0 : animframeID++;
+	//		actualframe = animframes[animframeID];
+	//		doraemon = 0;
+	//	}
+	//}
 	
 }
 

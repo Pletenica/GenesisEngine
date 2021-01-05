@@ -48,7 +48,7 @@ void ParticlesBase::UpdateParticle(float dt)
 
 	OrientateParticle();
 	//Draw the particle
-	DrawParticle();
+	//DrawParticle();
 
 	//If the lifetime of the particle is reached, call to delete
 	if (particleActualTime >= particleLifetime) {

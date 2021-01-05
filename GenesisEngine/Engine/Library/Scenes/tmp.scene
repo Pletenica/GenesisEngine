@@ -1,7 +1,7 @@
 {
     "Game Objects": [
         {
-            "UUID": 1097130501,
+            "UUID": 835718080,
             "Parent UUID": 0,
             "Name": "Root",
             "Components": [
@@ -27,8 +27,64 @@
             ]
         },
         {
+            "UUID": 844490326,
+            "Parent UUID": 835718080,
+            "Name": "Main Camera",
+            "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        1,
+                        -5
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "name": "",
+                    "Type": 3,
+                    "Main Camera": true,
+                    "position": [
+                        0,
+                        1,
+                        -5
+                    ],
+                    "up": [
+                        0,
+                        1,
+                        0
+                    ],
+                    "front": [
+                        0,
+                        0,
+                        1
+                    ],
+                    "horizontalFOV": 0.018277045339345932,
+                    "verticalFOV": 0.010961169376969337,
+                    "nearPlane": 0.30000001192092896,
+                    "farPlane": 1000,
+                    "aspectRatio": 1.7777777910232544,
+                    "reference": [
+                        -431602080,
+                        -431602080,
+                        -431602080
+                    ]
+                }
+            ]
+        },
+        {
             "UUID": 1678402620,
-            "Parent UUID": 1097130501,
+            "Parent UUID": 835718080,
             "Name": "Street",
             "Components": [
                 {
@@ -1272,16 +1328,16 @@
             ]
         },
         {
-            "UUID": 1308570445,
-            "Parent UUID": 1097130501,
-            "Name": "Main Camera",
+            "UUID": 480383345,
+            "Parent UUID": 835718080,
+            "Name": "Empty Game Object",
             "Components": [
                 {
                     "Type": 0,
                     "Position": [
                         0,
-                        1,
-                        -5
+                        0,
+                        0
                     ],
                     "Rotation": [
                         0,
@@ -1296,34 +1352,9 @@
                     ]
                 },
                 {
-                    "name": "",
-                    "Type": 3,
-                    "Main Camera": true,
-                    "position": [
-                        0,
-                        1,
-                        -5
-                    ],
-                    "up": [
-                        0,
-                        1,
-                        0
-                    ],
-                    "front": [
-                        0,
-                        0,
-                        1
-                    ],
-                    "horizontalFOV": 0.018277045339345932,
-                    "verticalFOV": 0.010961169376969337,
-                    "nearPlane": 0.30000001192092896,
-                    "farPlane": 1000,
-                    "aspectRatio": 1.7777777910232544,
-                    "reference": [
-                        -431602080,
-                        -431602080,
-                        -431602080
-                    ]
+                    "Type": 6,
+                    "Emitter Settings": "Library\/Particles\/Emitters\/Default Emitter Name.emittersettings",
+                    "Particles Settings": "Library\/Particles\/Base Particles\/Default Particle Name.particlessettings"
                 }
             ]
         }

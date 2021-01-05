@@ -167,6 +167,8 @@ update_status Editor::Draw()
 
 bool Editor::CleanUp()
 {
+	LOG("Editor CleanUp");
+
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
 	ImGui::DestroyContext();

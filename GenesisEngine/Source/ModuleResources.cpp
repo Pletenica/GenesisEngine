@@ -46,6 +46,7 @@ bool ModuleResources::Init()
 
 bool ModuleResources::CleanUp()
 {
+	LOG("Resources CleanUp");
 	bool ret = true;
 	std::map<uint, Resource*>::iterator it = resources.begin();
 
@@ -312,6 +313,9 @@ uint ModuleResources::ImportFile(const char* assets_file)
 	char* fileBuffer;
 	uint size = FileSystem::Load(assets_file, &fileBuffer);
 	std::string library_path;
+	if (size == 0) {
+		return 0;
+	}
 
 	switch (type)
 	{

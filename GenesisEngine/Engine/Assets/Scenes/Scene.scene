@@ -1,7 +1,7 @@
 {
     "Game Objects": [
         {
-            "UUID": 835718080,
+            "UUID": 162207391,
             "Parent UUID": 0,
             "Name": "Root",
             "Components": [
@@ -27,8 +27,8 @@
             ]
         },
         {
-            "UUID": 844490326,
-            "Parent UUID": 835718080,
+            "UUID": 170701153,
+            "Parent UUID": 162207391,
             "Name": "Main Camera",
             "Components": [
                 {
@@ -84,7 +84,7 @@
         },
         {
             "UUID": 1678402620,
-            "Parent UUID": 835718080,
+            "Parent UUID": 162207391,
             "Name": "Street",
             "Components": [
                 {
@@ -1328,15 +1328,15 @@
             ]
         },
         {
-            "UUID": 480383345,
-            "Parent UUID": 835718080,
-            "Name": "Empty Game Object",
+            "UUID": 500705660,
+            "Parent UUID": 162207391,
+            "Name": "Particle 1",
             "Components": [
                 {
                     "Type": 0,
                     "Position": [
                         0,
-                        0,
+                        1,
                         0
                     ],
                     "Rotation": [

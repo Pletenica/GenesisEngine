@@ -111,8 +111,6 @@ bool ModuleWindow::CleanUp()
 {
 	LOG("Destroying SDL window and quitting all SDL systems");
 
-	SDL_GL_DeleteContext(context);
-
 	//Destroy window
 	if (window != NULL)
 	{

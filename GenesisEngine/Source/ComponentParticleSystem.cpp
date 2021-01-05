@@ -19,6 +19,8 @@ ComponentParticleSystem::ComponentParticleSystem(GameObject* gameObject) : Compo
 {
 	_gameObject = gameObject;
 	type = ComponentType::PARTICLE;
+	SaveParticleSettings("Library/Particles/Base Particles/Default Particle Name.partclessettings");
+	SaveEmitterSettings("Library/Particles/Emitters/Default Emitter Name.emittersettings");
 }
 
 ComponentParticleSystem::~ComponentParticleSystem()
@@ -246,7 +248,7 @@ void ComponentParticleSystem::LoadEmitterSettings(const char* _path)
 	GnJSONArray emitterArray(config.GetArray("Emitter Settings"));
 	GnJSONObj _manager(emitterArray.GetObjectAt(0));
 
-	emitter._emitterConfig.emitterName = _manager.GetString("Emitter Name", "");
+	emitter._emitterConfig.emitterName = _manager.GetString("Emitter Name", "Default Emitter Name");
 	emitter._emitterConfig.emitterLoop = _manager.GetBool("Loop");
 	emitter._emitterConfig.showEmitterAABB = _manager.GetBool("Show Emitter AABB");
 	emitter._emitterConfig.showEmitterForm = _manager.GetBool("Show Emitter Form");

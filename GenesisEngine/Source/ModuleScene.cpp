@@ -29,9 +29,7 @@ bool ModuleScene::Start()
 	selectedGameObject = root;
 	root->SetName("Root");
 
-	GameObject* street_environment = App->resources->RequestGameObject("Assets/Models/street/Street environment_V01.fbx");
-	street_environment->SetName("Street");
-	AddGameObject(street_environment);
+	//Load("Library/Scenes/Scene.scene");
 	
 	GameObject* camera = new GameObject();
 	camera->AddComponent(ComponentType::CAMERA);
@@ -39,14 +37,16 @@ bool ModuleScene::Start()
 	camera->GetTransform()->SetPosition(float3(0.0f, 1.0f, -5.0f));
 	AddGameObject(camera);
 	App->renderer3D->SetMainCamera((Camera*)camera->GetComponent(ComponentType::CAMERA));
-
-
-	GameObject* particle1 = new GameObject();
-	particle1->AddComponent(ComponentType::PARTICLE);
-	particle1->SetName("Particle 1");
-	particle1->GetTransform()->SetPosition(float3(0.0f, 1.0f, 0.0f));
-	AddGameObject(particle1);
-	uint baker_house_texture = App->resources->ImportFile("Assets/Textures/Baker_house.png");
+	
+	GameObject* street_environment = App->resources->RequestGameObject("Assets/Models/street/Street environment_V01.fbx");
+	street_environment->SetName("Street");
+	AddGameObject(street_environment);
+	
+	//GameObject* particle1 = new GameObject();
+	//particle1->AddComponent(ComponentType::PARTICLE);
+	//particle1->SetName("Particle 1");
+	//particle1->GetTransform()->SetPosition(float3(0.0f, 1.0f, 0.0f));
+	//AddGameObject(particle1);
 	return ret;
 }
 
