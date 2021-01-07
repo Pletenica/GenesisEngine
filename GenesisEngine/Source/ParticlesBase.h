@@ -18,7 +18,7 @@ class ParticlePlane;
 class ParticlesBase {
 public:
 	ParticlesBase();
-	ParticlesBase(ParticlesEmitter* _parent, float3 _initialPosition, float3 _particleSpeedVector, float _initSize, float _finalSize,  int _particleLifeTime, float4 _initStateColor, float4 _finalStateColor, ResourceTexture* _texture, ParticlePlane& _particleMesh);
+	ParticlesBase(ParticlesEmitter* _parent, float3 _initialPosition, float3 _particleSpeedVector, float _initSize, float _finalSize,  int _particleLifeTime, float4 _initStateColor, float4 _finalStateColor, ResourceTexture* _texture);
 	~ParticlesBase();
 
 	void UpdateParticle(float dt);
@@ -42,6 +42,8 @@ public:
 	float3 particleScale = float3::one;
 	Quat particleRotation = Quat::identity;
 
+	float4x4 localMatrix;
+
 	float particleLifetime = 5;
 	float particleActualTime = 0;
 
@@ -51,8 +53,6 @@ public:
 
 	ResourceTexture* texture = nullptr;
 	ParticlesEmitter* parent;
-	ParticlePlane* particleMesh;
-	
 
 private:
 	bool _toDelete = false;

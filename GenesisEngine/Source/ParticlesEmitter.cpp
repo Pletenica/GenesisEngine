@@ -7,17 +7,25 @@
 #include "Time.h"
 #include "MathGeoLib/include/Math/float3.h"
 #include "ModuleInput.h"
+#include"WindowParticles.h"
 
 ParticlesEmitter::ParticlesEmitter()
 {
 	_particlesConfig._texture = dynamic_cast<ResourceTexture*>(App->resources->RequestResource(App->resources->Find("Assets/EngineAssets/ParticleBase.png")));
 	ResetEmitterShape();
+
+	WindowParticles* w_part = (WindowParticles*)App->editor->windows[PARTICLES_EDITOR_WINDOW];
+	w_part->UpdateEmitterInWindow(*this);
 	//InstantiateNewParticle();
 }
 
 ParticlesEmitter::~ParticlesEmitter()
 {
 	particles.clear();
+	if (_particlesConfig._texture!= nullptr) {
+		App->resources->ReleaseResource(_particlesConfig._texture->GetUID());
+	}
+	
 }
 
 void ParticlesEmitter::DrawEmitter()
@@ -215,7 +223,7 @@ void ParticlesEmitter::InstantiateNewParticle()
 
 		RandomizeNewPositionAndDirection(offset, Direction);
 
-		ParticlesBase* _newParticle = new ParticlesBase(this, offset, Direction * particleSpeed, initSize, finalSize, particleLifeTime, _particlesConfig.initStateColor, _particlesConfig.finalStateColor, _particlesConfig._texture, particlesMesh);
+		ParticlesBase* _newParticle = new ParticlesBase(this, offset, Direction * particleSpeed, initSize, finalSize, particleLifeTime, _particlesConfig.initStateColor, _particlesConfig.finalStateColor, _particlesConfig._texture /*particlesMesh*/);
 		particles.push_back(_newParticle);
 	}
 }
@@ -269,7 +277,7 @@ void ParticlesEmitter::UpdateEmitter(float dt)
 	for (auto i = mapParticles.rbegin(); i != mapParticles.rend(); i++) {
 		auto r = mapParticles.equal_range(i->first);
 		for (auto k = r.first; k != r.second; k++) {
-			//k->second->DrawParticle();
+			k->second->DrawParticle();
 		}
 	}
 
@@ -292,14 +300,14 @@ void ParticlesEmitter::UpdateEmitter(float dt)
 		DrawEmitter();
 	}
 
-	//if (!animframes.empty() && Time::gameClock.deltaTime() != 0) {
-	//	doraemon += Time::gameClock.deltaTime();
-	//	if (doraemon >= _particlesConfig.animspeed) {
-	//		(animframeID >= animframes.size() - 1) ? animframeID = 0 : animframeID++;
-	//		actualframe = animframes[animframeID];
-	//		doraemon = 0;
-	//	}
-	//}
+	if (!animframes.empty() && Time::gameClock.deltaTime() != 0) {
+		doraemon += Time::gameClock.deltaTime();
+		if (doraemon >= _particlesConfig.animspeed) {
+			(animframeID >= animframes.size() - 1) ? animframeID = 0 : animframeID++;
+			actualframe = animframes[animframeID];
+			doraemon = 0;
+		}
+	}
 	
 }
 
@@ -412,98 +420,4 @@ void ParticlesEmitter::RandomizeNewPositionAndDirection(float3& _position, float
 	_position.x += GetEmitterPosition().x;
 	_position.y += GetEmitterPosition().y;
 	_position.z += GetEmitterPosition().z;
-}
-
-ParticlePlane::ParticlePlane()
-{
-	vertices = new float[12]{
-	0.0f ,0.0f, 0.0f,
-	1.0f ,0.0f, 0.0f,
-	1.0f ,0.0f, 1.0f,
-	0.0f ,0.0f, 1.0f,
-	};
-	num_vertices = 4;
-
-	indices = new uint[4]{
-		0, 1, 2,
-		3
-	};
-	num_indices = 4;
-
-	normals = new float[num_vertices * 3]{
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f
-	};
-	num_normals = 4;
-
-	texcoords = new float[num_indices]
-	{
-		0.0f , 0.0f,
-		1.0f , 0.0f,
-		1.0f, -1.0f,
-		0.0f, -1.0f
-	};
-
-	GenerateBuffers();
-}
-
-ParticlePlane::~ParticlePlane() {
-
-	glDeleteBuffers(1, &id_vertices);
-	RELEASE_ARRAY(vertices);
-	num_indices = 0;
-
-	glDeleteBuffers(1, &id_indices);
-	RELEASE_ARRAY(indices);
-
-	glDeleteBuffers(1, &id_normals);
-	RELEASE_ARRAY(normals);
-
-	//glDeleteBuffers(1, &id_texcoords);
-	//RELEASE_ARRAY(texcoords);
-}
-
-void ParticlePlane::GenerateBuffers()
-{
-	//vertices
-	glGenBuffers(1, (GLuint*)&(id_vertices));
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) *num_vertices * 3, vertices, GL_STATIC_DRAW);
-
-	//indices
-	glGenBuffers(1, (GLuint*)&(id_indices));
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_indices, indices, GL_STATIC_DRAW);
-
-	//normals
-	glGenBuffers(1, (GLuint*)&(id_normals));
-	glBindBuffer(GL_NORMAL_ARRAY, id_normals);
-	glBufferData(GL_NORMAL_ARRAY, sizeof(float) * num_vertices * 3, normals, GL_STATIC_DRAW);
-
-	//textures
-	glGenBuffers(1, (GLuint*)&(id_texcoords));
-	glBindBuffer(GL_ARRAY_BUFFER, id_texcoords);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_indices * 3, texcoords, GL_STATIC_DRAW);
-
-}
-
-void ParticlePlane::DeleteBuffers()
-{
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glDeleteBuffers(1, &id_vertices);
-	id_vertices = 0;
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	glDeleteBuffers(1, &id_indices);
-	id_indices = 0;
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glDeleteBuffers(1, &id_normals);
-	id_normals = 0;
-
-	//glBindTexture(GL_TEXTURE_2D, 0);
-	//glDeleteBuffers(1, &id_textures);
-	//id_textures = 0;
 }

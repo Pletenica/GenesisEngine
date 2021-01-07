@@ -57,7 +57,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>C:\Users\roger\OneDrive\Documentos\GitHub\GenesisEngine\GenesisEngine\Source\Libs;D:\Documents\GitHub\GenesisEngine\GenesisEngine\Source\Libs</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Mique\Desktop\GenesisEngine\Source\Libs;C:\Users\roger\OneDrive\Documentos\GitHub\GenesisEngine\GenesisEngine\Source\Libs;D:\Documents\GitHub\GenesisEngine\GenesisEngine\Source\Libs</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
       <StructMemberAlignment>Default</StructMemberAlignment>
@@ -66,7 +66,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>C:\Users\roger\OneDrive\Documentos\GitHub\GenesisEngine\GenesisEngine\Source\Libs;D:\Documents\GitHub\GenesisEngine\GenesisEngine\Source\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Mique\Desktop\GenesisEngine\Source\Libs;C:\Users\roger\OneDrive\Documentos\GitHub\GenesisEngine\GenesisEngine\Source\Libs;D:\Documents\GitHub\GenesisEngine\GenesisEngine\Source\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -78,7 +78,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>C:\Users\roger\OneDrive\Documentos\GitHub\GenesisEngine\GenesisEngine\Source\Libs;D:\Documents\GitHub\GenesisEngine\GenesisEngine\Source\Libs</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Mique\Desktop\GenesisEngine\Source\Libs;C:\Users\roger\OneDrive\Documentos\GitHub\GenesisEngine\GenesisEngine\Source\Libs;D:\Documents\GitHub\GenesisEngine\GenesisEngine\Source\Libs</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
       <StructMemberAlignment>Default</StructMemberAlignment>
@@ -89,7 +89,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>C:\Users\roger\OneDrive\Documentos\GitHub\GenesisEngine\GenesisEngine\Source\Libs;D:\Documents\GitHub\GenesisEngine\GenesisEngine\Source\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Mique\Desktop\GenesisEngine\Source\Libs;C:\Users\roger\OneDrive\Documentos\GitHub\GenesisEngine\GenesisEngine\Source\Libs;D:\Documents\GitHub\GenesisEngine\GenesisEngine\Source\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

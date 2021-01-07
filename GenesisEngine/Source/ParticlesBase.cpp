@@ -10,10 +10,24 @@
 
 ParticlesBase::ParticlesBase()
 {
+	parent = nullptr;
+	initSize = 0.0f;
+	actualSize = 0.0f;
+	finalSize = 0.0f;
+	particlePosition = float3::zero;
+	particleSpeedVector = float3::zero;
+	particleLifetime = 0.0f;
+	particleActualTime = 0;
+	initStateColor = float4::zero;
+	finalStateColor = float4::zero;
+	particleRotation = Quat::identity;
+	particleScale = float3::one;
+	texture = nullptr;
 
+	float4x4::FromTRS(particlePosition, particleRotation, particleScale * actualSize);
 }
 
-ParticlesBase::ParticlesBase(ParticlesEmitter* _parent, float3 _initialPosition, float3 _particleSpeedVector, float _initSize, float _finalSize, int _particleLifeTime, float4 _initStateColor, float4 _finalStateColor, ResourceTexture* _texture, ParticlePlane& _particleMesh)
+ParticlesBase::ParticlesBase(ParticlesEmitter* _parent, float3 _initialPosition, float3 _particleSpeedVector, float _initSize, float _finalSize, int _particleLifeTime, float4 _initStateColor, float4 _finalStateColor, ResourceTexture* _texture)
 {
 	//Put the variables well
 	parent = _parent;
@@ -27,13 +41,16 @@ ParticlesBase::ParticlesBase(ParticlesEmitter* _parent, float3 _initialPosition,
 	initStateColor = _initStateColor;
 	finalStateColor = _finalStateColor;
 	texture = _texture;
-	particleMesh = &_particleMesh;
+	particleRotation = Quat::identity;
+	particleScale = float3::one;
+
+	float4x4::FromTRS(particlePosition, particleRotation, particleScale * actualSize);
 }
 
 ParticlesBase::~ParticlesBase()
 {
-	delete particleMesh;
-	particleMesh = nullptr;
+	//delete particleMesh;
+	//particleMesh = nullptr;
 }
 
 void ParticlesBase::UpdateParticle(float dt)
@@ -61,7 +78,7 @@ void ParticlesBase::DrawParticle()
 	//Applicate Tint
 	glColor4f(actualStateColor.x, actualStateColor.y, actualStateColor.z, actualStateColor.w);
 
-	glDisable(GL_CULL_FACE);
+	glEnable(GL_CULL_FACE);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_NORMALIZE);
 	glEnable(GL_BLEND);
@@ -87,13 +104,16 @@ void ParticlesBase::DrawParticle()
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, particleMesh->id_indices);
 
 	glPushMatrix();
-	float4x4 ParticleMatrix = float4x4::FromTRS(particlePosition, particleRotation, particleScale * actualSize).Transposed();
+
+	localMatrix = float4x4::FromTRS(particlePosition, particleRotation, particleScale * actualSize);
+	float4x4 ParticleMatrix = localMatrix.Transposed();
 	glMultMatrixf(ParticleMatrix.ptr());
 
 	glBindTexture(GL_TEXTURE_2D, texture->GetGpuID());
 
-	//glDrawElements(GL_QUADS, particleMesh->num_indices, GL_UNSIGNED_INT, NULL);
+	
 	glBegin(GL_QUADS);
+	//glDrawElements(GL_QUADS, particleMesh->num_indices, GL_UNSIGNED_INT, NULL);
 
 	glTexCoord2f(parent->actualframe.x, parent->actualframe.y);
 	glVertex3f(0, 0, 0);
@@ -120,17 +140,16 @@ void ParticlesBase::DrawParticle()
 
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
-	glEnable(GL_CULL_FACE);
+	glDisable(GL_CULL_FACE);
 	glDisable(GL_NORMALIZE);
 	glDisable(GL_BLEND);
 }
 
 void ParticlesBase::OrientateParticle()
 {
-	float4x4 ParticleMatrix = float4x4::FromTRS(particlePosition, particleRotation, particleScale * actualSize).Transposed();
-
-	float3 Direction = App->renderer3D->GetMainCamera()->GetPosition() - particlePosition;
-	particleRotation = Quat::LookAt(float3(0.0f, -1.0f, 0.0f), Direction, float3(0.0f, 1.0f, 0.0f), float3(0.0f, 0.0f, 1.0f));
+	float3 Direction = (particlePosition - App->camera->GetCamera()->GetPosition()).Normalized();
+	particleRotation = Quat::LookAt(float3(0.f, 1.f, 0.f), Direction, float3(1.0f, 0.0f, 0.0f), float3(0.0f, 1.0f, 0.0f));
+	//localMatrix.setrota = 
 }
 
 void ParticlesBase::InterpolateSize()

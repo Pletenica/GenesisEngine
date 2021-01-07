@@ -29,18 +29,18 @@ bool ModuleScene::Start()
 	selectedGameObject = root;
 	root->SetName("Root");
 
-	//Load("Library/Scenes/Scene.scene");
+	Load("Library/Scenes/Scene.scene");
 	
-	GameObject* camera = new GameObject();
-	camera->AddComponent(ComponentType::CAMERA);
-	camera->SetName("Main Camera");
-	camera->GetTransform()->SetPosition(float3(0.0f, 1.0f, -5.0f));
-	AddGameObject(camera);
-	App->renderer3D->SetMainCamera((Camera*)camera->GetComponent(ComponentType::CAMERA));
-	
-	GameObject* street_environment = App->resources->RequestGameObject("Assets/Models/street/Street environment_V01.fbx");
-	street_environment->SetName("Street");
-	AddGameObject(street_environment);
+	//GameObject* camera = new GameObject();
+	//camera->AddComponent(ComponentType::CAMERA);
+	//camera->SetName("Main Camera");
+	//camera->GetTransform()->SetPosition(float3(0.0f, 1.0f, -5.0f));
+	//AddGameObject(camera);
+	//App->renderer3D->SetMainCamera((Camera*)camera->GetComponent(ComponentType::CAMERA));
+	//
+	//GameObject* street_environment = App->resources->RequestGameObject("Assets/Models/street/Street environment_V01.fbx");
+	//street_environment->SetName("Street");
+	//AddGameObject(street_environment);
 	
 	//GameObject* particle1 = new GameObject();
 	//particle1->AddComponent(ComponentType::PARTICLE);

@@ -19,7 +19,7 @@ ComponentParticleSystem::ComponentParticleSystem(GameObject* gameObject) : Compo
 {
 	_gameObject = gameObject;
 	type = ComponentType::PARTICLE;
-	SaveParticleSettings("Library/Particles/Base Particles/Default Particle Name.partclessettings");
+	SaveParticleSettings("Library/Particles/Base Particles/Default Particle Name.particlessettings");
 	SaveEmitterSettings("Library/Particles/Emitters/Default Emitter Name.emittersettings");
 }
 
@@ -31,9 +31,9 @@ void ComponentParticleSystem::Update(float dt)
 {
 	float deltaTime = Time::gameClock.deltaTime();
 	
-	if (Time::gameClock.deltaTime() != 0) {
+	//if (Time::gameClock.deltaTime() != 0) {
 		emitter.UpdateEmitter(deltaTime);
-	}
+	//}
 	Transform* _trans= (Transform*)_gameObject->GetComponent(ComponentType::TRANSFORM);
 	if (_trans != nullptr) {
 		emitter.SetEmitterTransform(_trans->GetLocalTransform());
@@ -335,6 +335,10 @@ void ComponentParticleSystem::LoadParticleSettings(const char* _path)
 	emitter._particlesConfig.animrow = _manager.GetInt("Rows");
 	emitter._particlesConfig.animspeed = _manager.GetFloat("Speed");
 	emitter.PutCorrectFrameAnimation();
+
+	if (emitter._particlesConfig._texture != nullptr) {
+		App->resources->ReleaseResource(emitter._particlesConfig._texture->GetUID());
+	}
 	emitter._particlesConfig._texture = dynamic_cast<ResourceTexture*>(App->resources->RequestResource(_manager.GetInt("Texture UID", 0)));
 
 	_manager.Release();

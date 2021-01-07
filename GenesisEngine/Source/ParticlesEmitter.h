@@ -76,32 +76,6 @@ struct ParticlesConfig {
 	float animspeed = 1.f;
 };
 
-class ParticlePlane {
-public:
-	ParticlePlane();
-	~ParticlePlane();
-
-	void GenerateBuffers();
-	void DeleteBuffers();
-
-	uint id_vertices = 0;
-	uint num_vertices = 0;
-	float* vertices = nullptr;
-
-	uint id_indices = 0;
-	uint num_indices = 0;
-	uint* indices = nullptr;
-
-	uint id_normals = 0;
-	uint num_normals = 0;
-	float* normals;
-
-	uint id_texcoords = 0;
-	uint num_texcoords = 0;
-	float* texcoords;
-
-};
-
 class ParticlesEmitter {
 public:
 	ParticlesEmitter();
@@ -148,7 +122,7 @@ public:
 	float emitterActualLifetime = 0;
 	float actualTimeBetweenParticles = 0.f;
 
-	ParticlePlane particlesMesh = ParticlePlane();
+	//ParticlePlane particlesMesh = ParticlePlane();
 	bool isEmitterDead = false;
 	std::vector<ImVec4> animframes;
 };
