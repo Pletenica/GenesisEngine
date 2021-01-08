@@ -13,6 +13,10 @@ https://github.com/Pletenica/Overlevende
 This is the third assignment of a subject(Videogame Engines) from the UPC CITM University. This system have been developed by two students trying their best to learn and contribute to the developing of videogames. 
 As said before you can find the two other assignments explained and done in the Pletenica's Overlevende Engine that consist of creating a simple geometry viewer supporting drag and drop files and orbital camera avoiding dependency from FBX for running our games, organize resources coherently and apply the minimal optimizations of a graphics engine.
 
+See a brief presentation of our job here!
+
+https://www.youtube.com/watch?v=legmxVMBLLk&feature=youtu.be&ab_channel=JosepS%C3%A0nchezArbona
+
 # Pletenica's Members
 ![Josep](https://github.com/Pletenica/GenesisEngine/blob/master/Web/Pepote.png?raw=true)
 
@@ -200,11 +204,11 @@ This window edits the main functionality of the emitter. You can edit time of sp
 # Resources
 ### Overlevende Core Repository
  - **Repository:** https://github.com/Pletenica/Overlevende
- - **Last Release:** https://github.com/Pletenica/Overlevende/releases/tag/v0.7
+ - **Last Release:** https://github.com/Pletenica/Overlevende/releases
 
 ### Overlevende's Particle System
  - **Repository:** https://github.com/Pletenica/GenesisEngine
- - **Last Release:** 
+ - **Last Release:** https://github.com/Pletenica/GenesisEngine/releases
 
 # License
 ### Copyright 2020 Josep Sànchez Arbona and Roger Pérez Romera.
