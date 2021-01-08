@@ -72,3 +72,38 @@ There are plenty of importing options specially for textures. When the file is d
  - Interactive path in assets window which lets the user move easilly bacwards in the file or folder path. 
  - Meshes can be selected individually from inside a model pushing the arrow next to the file in the assets window. 
  - Inside the configuration window there is an option under the resources tab which lets you delete all meta files and library files at shutdown so projects can be cleaned before releases or sending to mates. 
+
+# Third Assignment(By Pletenica Studio)
+## Particle system implemented
+
+### Particle System: How it works
+
+## Creating Particles
+First of all you will have to create a new gameobject from the window Game Object, once created you will have to add a component of Particle system in the inspector of that gameobject. The Particle System consist basically on two parts: the base particle and the emitter. So in the inspector, aside from the gameobject name and the transform components you will have the Particle System component.
+
+## The Particle System Component
+
+It's important to know that in the very first moment when you add a particle component this will be disabled, you can still work with it and edit the emitter and particle but you will no see any change or feedback from the editor or game scene. We thought this could help to make the scene lighter when working wioth a lot of assets.
+Then we have the Show Configuration Window option that will open the tools to edit our particles and emitters explained below. Finally we will have four options to Save/Load particles.
+![Inspector](https://github.com/Pletenica/GenesisEngine/blob/master/Web/InspectorParticle.PNG?raw=true)
+
+## Configuration Window
+
+The Configuration Window is divided by particle options and emitter options. Don't forget to name the particles and the emitters and saving them by **pressing enter** and clicking on the save options in the inspector.
+### Particles
+**Particle Texture:**
+This window allows you to import and add a texture for your particles, althought you have a default texture to work with particles without needing new ones. Remember you can use animations by importing the spritesheet as a texture and using the slides of columns and rows to mark the sprites. Then if you use animation you can edit the time between frames too.
+![Animation](https://github.com/Pletenica/GenesisEngine/blob/master/Web/particle%20animation.PNG?raw=true)
+
+**Initial and Final State:**
+If you don't use animation you can edit the life of the particle by changing the color and size in the initial state and final state and it gradually will change during its lifetime.
+![Paricles](https://github.com/Pletenica/GenesisEngine/blob/master/Web/Particleeditor.PNG?raw=true)
+
+### Emitters
+**Emitter form:**
+You will have four main options to create your emitter, these consist of: sphere, semisphere, cone, circle. And depending of the form of your emitter you will be able to edit differents components.
+
+**Loop:**
+This window edits the main functionality of the emitter. You can edit time of spawning particles, they lifetime, number of particles spawned, their speed and some showing options for the emitter and its AABB.
+
+![Emitters](https://github.com/Pletenica/GenesisEngine/blob/master/Web/emittereditor.PNG?raw=true)
