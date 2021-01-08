@@ -6,6 +6,8 @@
 #include "FileSystem.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "ComponentParticleSystem.h"
+#include "Time.h"
 
 #include <algorithm>
 
@@ -29,7 +31,7 @@ bool ModuleScene::Start()
 	selectedGameObject = root;
 	root->SetName("Root");
 
-	Load("Library/Scenes/Scene.scene");
+	Load("Library/Scenes/Final Scene.scene");
 	
 	//GameObject* camera = new GameObject();
 	//camera->AddComponent(ComponentType::CAMERA);
@@ -42,11 +44,14 @@ bool ModuleScene::Start()
 	//street_environment->SetName("Street");
 	//AddGameObject(street_environment);
 	
-	//GameObject* particle1 = new GameObject();
-	//particle1->AddComponent(ComponentType::PARTICLE);
-	//particle1->SetName("Particle 1");
-	//particle1->GetTransform()->SetPosition(float3(0.0f, 1.0f, 0.0f));
-	//AddGameObject(particle1);
+	fireworksGO = new GameObject();
+	fireworksGO->AddComponent(ComponentType::PARTICLE);
+	fireworksGO->SetName("Fireworks");
+	fireworksGO->GetTransform()->SetPosition(float3(0.0f, 1.0f, 0.0f));
+	ComponentParticleSystem* comp = (ComponentParticleSystem*) fireworksGO->GetComponent(ComponentType::PARTICLE);
+	comp->LoadEmitterSettings("Library/Particles/Emitters/FireRocket Explosion.emittersettings");
+	comp->LoadParticleSettings("Library/Particles/Base Particles/Fireworks.particlessettings");
+	AddGameObject(fireworksGO);
 	return ret;
 }
 
@@ -84,6 +89,23 @@ void ModuleScene::HandleInput()
 
 	else if ((App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN))
 		mCurrentGizmoOperation = ImGuizmo::OPERATION::SCALE;
+	
+	else if (Time::gameClock.deltaTime()!=0 && (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN))
+	{
+		if (fireworksGO != nullptr) {
+			ComponentParticleSystem* comp = (ComponentParticleSystem*)fireworksGO->GetComponent(ComponentType::PARTICLE);
+			comp->emitter.Play();
+		}
+		else {
+			fireworksGO = RecursiveFindFireworks(root);
+			if (fireworksGO != nullptr) {
+				ComponentParticleSystem* comp = (ComponentParticleSystem*)fireworksGO->GetComponent(ComponentType::PARTICLE);
+				comp->emitter.Play();
+			}
+		}
+		
+	}
+
 }
 
 // Load assets
@@ -177,7 +199,7 @@ bool ModuleScene::ClearScene()
 
 	root->DeleteChildren();
 	root = nullptr;
-
+	fireworksGO = nullptr;
 	return ret;
 }
 
@@ -281,6 +303,22 @@ bool ModuleScene::Load(const char* scene_file)
 		LOG("Scene: %s loaded successfully", scene_file);
 
 	return ret;
+}
+
+GameObject* ModuleScene::RecursiveFindFireworks(GameObject* go)
+{
+	if (go->GetParent() == nullptr){
+		retgo = nullptr;
+	}
+	if (go->name == "Fireworks") {
+		retgo = go;
+	}
+	
+	for (size_t i = 0; i < go->children.size(); i++)
+	{
+		RecursiveFindFireworks(go->children[i]);
+	}
+	return retgo;
 }
 
 bool ModuleScene::LoadConfig(GnJSONObj& config)

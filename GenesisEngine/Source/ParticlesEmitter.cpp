@@ -245,15 +245,7 @@ void ParticlesEmitter::UpdateEmitter(float dt)
 			//Condition if we can put a new particle
 			if (actualTimeBetweenParticles >= _emitterConfig.timeMaxBetweenParticles) {
 				//If the time between spawn particles is 0, spawn all the particles in one frame
-				if (_emitterConfig.timeMaxBetweenParticles == 0) {
-					for (int i = 0; i < _emitterConfig.particleMaxSpawn - particles.size(); i++) {
-						InstantiateNewParticle();
-					}
-				}
-				//if not, spawn one particle
-				else {
-					InstantiateNewParticle();
-				}
+				Play();
 
 				actualTimeBetweenParticles = 0;
 			}
@@ -309,6 +301,19 @@ void ParticlesEmitter::UpdateEmitter(float dt)
 		}
 	}
 	
+}
+
+void ParticlesEmitter::Play()
+{
+	if (_emitterConfig.timeMaxBetweenParticles == 0) {
+		for (int i = 0; i < _emitterConfig.particleMaxSpawn - particles.size(); i++) {
+			InstantiateNewParticle();
+		}
+	}
+	//if not, spawn one particle
+	else {
+		InstantiateNewParticle();
+	}
 }
 
 void ParticlesEmitter::ResetEmitterShape()

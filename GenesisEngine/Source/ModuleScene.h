@@ -3,10 +3,10 @@
 #include "Globals.h"
 #include "ImGui/imgui.h"
 #include "ImGuizmo/ImGuizmo.h"
+#include "GameObject.h"
 
 #include <vector>
 
-class GameObject;
 class GnTexture;
 #include "Camera.h"
 
@@ -42,11 +42,15 @@ public:
 
 private:
 	GameObject* root;
+	GameObject* fireworksGO = new GameObject();
 	ImGuizmo::OPERATION mCurrentGizmoOperation;
 	ImGuizmo::MODE mCurrentGizmoMode;
 
 	std::vector<Camera*> allcameras;
 	Camera* actualCamera = nullptr;
+
+	GameObject* RecursiveFindFireworks(GameObject* go);
+	GameObject* retgo = nullptr;
 };
 
 bool CompareCameraPriorities(Camera* i1, Camera* i2);

@@ -96,6 +96,7 @@ public:
 	//Emitter Actions
 	void InstantiateNewParticle();
 	void UpdateEmitter(float dt);
+	void Play();
 
 	void ResetEmitterShape();
 	void SetEmitterTransform(float4x4 _transform);

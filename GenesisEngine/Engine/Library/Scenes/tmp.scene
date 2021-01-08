@@ -9,7 +9,7 @@
                     "Type": 0,
                     "Position": [
                         0,
-                        0,
+                        -0.32365298271179199,
                         0
                     ],
                     "Rotation": [
@@ -36,7 +36,7 @@
                     "Position": [
                         0,
                         1,
-                        -5
+                        -90.913833618164062
                     ],
                     "Rotation": [
                         0,
@@ -57,7 +57,7 @@
                     "position": [
                         0,
                         1,
-                        -5
+                        -90.913833618164062
                     ],
                     "up": [
                         0,
@@ -1330,7 +1330,131 @@
         {
             "UUID": 500705660,
             "Parent UUID": 162207391,
-            "Name": "Particle 1",
+            "Name": "Smokestack",
+            "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        -32.899909973144531,
+                        6.8984050750732422,
+                        -43.177925109863281
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 6,
+                    "Emitter Settings": "Library\/Particles\/Emitters\/Smokestack.emittersettings",
+                    "Particles Settings": "Library\/Particles\/Base Particles\/SmokeGood.particlessettings"
+                }
+            ]
+        },
+        {
+            "UUID": 89858814,
+            "Parent UUID": 162207391,
+            "Name": "Smokestack 2",
+            "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        -40.609725952148438,
+                        6.9806609153747559,
+                        -43.260074615478516
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 6,
+                    "Emitter Settings": "Library\/Particles\/Emitters\/Smokestack.emittersettings",
+                    "Particles Settings": "Library\/Particles\/Base Particles\/SmokeGood.particlessettings"
+                }
+            ]
+        },
+        {
+            "UUID": 1576291878,
+            "Parent UUID": 162207391,
+            "Name": "Smokestack 3",
+            "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        -19.973188400268555,
+                        3.2555198669433594,
+                        -44.576080322265625
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 6,
+                    "Emitter Settings": "Library\/Particles\/Emitters\/Smokestack small.emittersettings",
+                    "Particles Settings": "Library\/Particles\/Base Particles\/SmokeGood Small.particlessettings"
+                }
+            ]
+        },
+        {
+            "UUID": 1138988799,
+            "Parent UUID": 162207391,
+            "Name": "Smokestack 4",
+            "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        -18.42695426940918,
+                        3.0466954708099365,
+                        -44.100746154785156
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 6,
+                    "Emitter Settings": "Library\/Particles\/Emitters\/Smokestack small.emittersettings",
+                    "Particles Settings": "Library\/Particles\/Base Particles\/SmokeGood Small.particlessettings"
+                }
+            ]
+        },
+        {
+            "UUID": 2001325316,
+            "Parent UUID": 162207391,
+            "Name": "Fireworks",
             "Components": [
                 {
                     "Type": 0,
@@ -1353,8 +1477,8 @@
                 },
                 {
                     "Type": 6,
-                    "Emitter Settings": "Library\/Particles\/Emitters\/Default Emitter Name.emittersettings",
-                    "Particles Settings": "Library\/Particles\/Base Particles\/Fire Particle.particlessettings"
+                    "Emitter Settings": "Library\/Particles\/Emitters\/FireRocket Explosion.emittersettings",
+                    "Particles Settings": "Library\/Particles\/Base Particles\/Fireworks.particlessettings"
                 }
             ]
         }
