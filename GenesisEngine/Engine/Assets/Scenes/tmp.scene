@@ -1336,7 +1336,7 @@
                     "Type": 0,
                     "Position": [
                         0,
-                        2.8608334064483643,
+                        1,
                         0
                     ],
                     "Rotation": [
@@ -1354,7 +1354,7 @@
                 {
                     "Type": 6,
                     "Emitter Settings": "Library\/Particles\/Emitters\/Default Emitter Name.emittersettings",
-                    "Particles Settings": "Library\/Particles\/Base Particles\/Default Particle Name.particlessettings"
+                    "Particles Settings": "Library\/Particles\/Base Particles\/Fire Particle.particlessettings"
                 }
             ]
         }
