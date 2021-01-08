@@ -222,7 +222,9 @@ void ParticlesEmitter::InstantiateNewParticle()
 		float3 offset = float3::zero;
 
 		RandomizeNewPositionAndDirection(offset, Direction);
-
+		if (particleSpeed == 0) {
+			Direction = float3::zero;
+		}
 		ParticlesBase* _newParticle = new ParticlesBase(this, offset, Direction * particleSpeed, initSize, finalSize, particleLifeTime, _particlesConfig.initStateColor, _particlesConfig.finalStateColor, _particlesConfig._texture /*particlesMesh*/);
 		particles.push_back(_newParticle);
 	}
@@ -239,18 +241,21 @@ void ParticlesEmitter::UpdateEmitter(float dt)
 		isEmitterDead = true;
 	}
 
-	if (_emitterConfig.emitterLoop == true || isEmitterDead == false) {
-		//Watch if emitter passed init time to do the things
-		if (emitterActualLifetime >= _emitterConfig.timeToInit) {
-			//Condition if we can put a new particle
-			if (actualTimeBetweenParticles >= _emitterConfig.timeMaxBetweenParticles) {
-				//If the time between spawn particles is 0, spawn all the particles in one frame
-				Play();
+	if (Time::gameClock.deltaTime()!= 0) {
+		if (_emitterConfig.emitterLoop == true || isEmitterDead == false) {
+			//Watch if emitter passed init time to do the things
+			if (emitterActualLifetime >= _emitterConfig.timeToInit) {
+				//Condition if we can put a new particle
+				if (actualTimeBetweenParticles >= _emitterConfig.timeMaxBetweenParticles) {
+					//If the time between spawn particles is 0, spawn all the particles in one frame
+					Play();
 
-				actualTimeBetweenParticles = 0;
+					actualTimeBetweenParticles = 0;
+				}
 			}
 		}
 	}
+	
 	//if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 	//	InstantiateNewParticle();
 	//}

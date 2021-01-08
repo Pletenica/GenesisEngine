@@ -44,14 +44,7 @@ bool ModuleScene::Start()
 	//street_environment->SetName("Street");
 	//AddGameObject(street_environment);
 	
-	fireworksGO = new GameObject();
-	fireworksGO->AddComponent(ComponentType::PARTICLE);
-	fireworksGO->SetName("Fireworks");
-	fireworksGO->GetTransform()->SetPosition(float3(0.0f, 1.0f, 0.0f));
-	ComponentParticleSystem* comp = (ComponentParticleSystem*) fireworksGO->GetComponent(ComponentType::PARTICLE);
-	comp->LoadEmitterSettings("Library/Particles/Emitters/FireRocket Explosion.emittersettings");
-	comp->LoadParticleSettings("Library/Particles/Base Particles/Fireworks.particlessettings");
-	AddGameObject(fireworksGO);
+	ResetNewFireWorks();
 	return ret;
 }
 
@@ -92,15 +85,27 @@ void ModuleScene::HandleInput()
 	
 	else if (Time::gameClock.deltaTime()!=0 && (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN))
 	{
-		if (fireworksGO != nullptr) {
-			ComponentParticleSystem* comp = (ComponentParticleSystem*)fireworksGO->GetComponent(ComponentType::PARTICLE);
-			comp->emitter.Play();
+		if (parentfireworksGO != nullptr && explosionfireworksGO != nullptr && colafireworksGO != nullptr) {
+			PutNewFireWorksConfig();
+			ComponentParticleSystem* comp = (ComponentParticleSystem*)explosionfireworksGO->GetComponent(ComponentType::PARTICLE);
+			comp->emitter.emitterActualLifetime = 0;
+			comp->emitter.isEmitterDead = false;
+			ComponentParticleSystem* comp2 = (ComponentParticleSystem*)colafireworksGO->GetComponent(ComponentType::PARTICLE);
+			comp2->emitter.emitterActualLifetime = 0;
+			comp2->emitter.isEmitterDead = false;
 		}
 		else {
-			fireworksGO = RecursiveFindFireworks(root);
-			if (fireworksGO != nullptr) {
-				ComponentParticleSystem* comp = (ComponentParticleSystem*)fireworksGO->GetComponent(ComponentType::PARTICLE);
-				comp->emitter.Play();
+			parentfireworksGO = RecursiveFindFireworks(root, "Fireworks");
+			explosionfireworksGO = RecursiveFindFireworks(root, "Explosion");
+			colafireworksGO = RecursiveFindFireworks(root, "Cola");
+			if (parentfireworksGO != nullptr && explosionfireworksGO != nullptr && colafireworksGO != nullptr) {
+				PutNewFireWorksConfig();
+				ComponentParticleSystem* comp = (ComponentParticleSystem*)explosionfireworksGO->GetComponent(ComponentType::PARTICLE);
+				comp->emitter.emitterActualLifetime = 0;
+				comp->emitter.isEmitterDead = false;
+				ComponentParticleSystem* comp2 = (ComponentParticleSystem*)colafireworksGO->GetComponent(ComponentType::PARTICLE);
+				comp2->emitter.emitterActualLifetime = 0;
+				comp2->emitter.isEmitterDead = false;
 			}
 		}
 		
@@ -199,9 +204,13 @@ bool ModuleScene::ClearScene()
 
 	root->DeleteChildren();
 	root = nullptr;
-	fireworksGO = nullptr;
+	parentfireworksGO = nullptr;
+	explosionfireworksGO = nullptr;
+	colafireworksGO = nullptr;
+
 	return ret;
-}
+}	
+
 
 Camera* ModuleScene::GetActualCamera(GameObject* _go)
 {
@@ -305,21 +314,91 @@ bool ModuleScene::Load(const char* scene_file)
 	return ret;
 }
 
-GameObject* ModuleScene::RecursiveFindFireworks(GameObject* go)
+GameObject* ModuleScene::RecursiveFindFireworks(GameObject* go, std::string name)
 {
-	if (go->GetParent() == nullptr){
+	if (go->GetParent() == nullptr) {
 		retgo = nullptr;
 	}
-	if (go->name == "Fireworks") {
+	if (go->name == name) {
 		retgo = go;
 	}
-	
+
 	for (size_t i = 0; i < go->children.size(); i++)
 	{
-		RecursiveFindFireworks(go->children[i]);
+		RecursiveFindFireworks(go->children[i], name);
 	}
 	return retgo;
 }
+
+void ModuleScene::ResetNewFireWorks()
+{
+	LCG randomizer;
+
+	//Do The Parent
+	parentfireworksGO = new GameObject();
+	parentfireworksGO->SetName("Fireworks");
+	parentfireworksGO->GetTransform()->SetPosition(float3(0.0f, 1.0f, 0.0f));
+	AddGameObject(parentfireworksGO);
+
+	//Do explosion Game Object
+	explosionfireworksGO = new GameObject();
+	explosionfireworksGO->AddComponent(ComponentType::PARTICLE);
+	explosionfireworksGO->SetName("Explosion");
+	explosionfireworksGO->GetTransform()->SetPosition(float3(0.0f, 1.0f, 0.0f));
+	AddGameObject(explosionfireworksGO);
+	ComponentParticleSystem* comp = (ComponentParticleSystem*)explosionfireworksGO->GetComponent(ComponentType::PARTICLE);
+	comp->LoadEmitterSettings("Library/Particles/Emitters/FireRocket Explosion.emittersettings");
+
+	
+
+	//Do cola GameObject
+	colafireworksGO = new GameObject();
+	colafireworksGO->AddComponent(ComponentType::PARTICLE);
+	colafireworksGO->SetName("Cola");
+	colafireworksGO->GetTransform()->SetPosition(float3(0.0f, 1.0f, 0.0f));
+	AddGameObject(colafireworksGO);
+	ComponentParticleSystem* comp2 = (ComponentParticleSystem*)colafireworksGO->GetComponent(ComponentType::PARTICLE);
+	comp2->LoadEmitterSettings("Library/Particles/Emitters/FireRocketCola.emittersettings");
+	
+
+	PutNewFireWorksConfig();
+	explosionfireworksGO->Reparent(parentfireworksGO);
+	colafireworksGO->Reparent(parentfireworksGO);
+}
+
+void ModuleScene::PutNewFireWorksConfig()
+{
+	LCG randomizer;
+
+	ComponentParticleSystem* comp = (ComponentParticleSystem*)explosionfireworksGO->GetComponent(ComponentType::PARTICLE);
+	int random1 = randomizer.Int(0, 2);
+	switch (random1) {
+	case(0):
+		comp->LoadParticleSettings("Library/Particles/Base Particles/Fireworks1.particlessettings");
+		break;
+	case(1):
+		comp->LoadParticleSettings("Library/Particles/Base Particles/Fireworks2.particlessettings");
+		break;
+	case(2):
+		comp->LoadParticleSettings("Library/Particles/Base Particles/Fireworks3.particlessettings");
+		break;
+	}
+
+	ComponentParticleSystem* comp2 = (ComponentParticleSystem*)colafireworksGO->GetComponent(ComponentType::PARTICLE);
+	int random2 = randomizer.Int(0, 2);
+	switch (random2) {
+	case(0):
+		comp2->LoadParticleSettings("Library/Particles/Base Particles/ColaFireworks1.particlessettings");
+		break;
+	case(1):
+		comp2->LoadParticleSettings("Library/Particles/Base Particles/ColaFireworks2.particlessettings");
+		break;
+	case(2):
+		comp2->LoadParticleSettings("Library/Particles/Base Particles/ColaFireworks3.particlessettings");
+		break;
+	}
+}
+
 
 bool ModuleScene::LoadConfig(GnJSONObj& config)
 {

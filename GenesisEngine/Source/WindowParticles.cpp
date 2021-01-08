@@ -222,7 +222,7 @@ void WindowParticles::DrawEmitterSettings()
 
 	ImGui::Text("Emitter Seconds to Init: ");
 	ImGui::SameLine();
-	if (ImGui::SliderFloat("##EmitterSecondstoInit", &emitterConf->timeToInit, 0, 50))
+	if (ImGui::SliderFloat("##EmitterSecondstoInit", &emitterConf->timeToInit, 0, 15))
 	{
 
 	}
@@ -233,7 +233,7 @@ void WindowParticles::DrawEmitterSettings()
 		ImGui::Text("Emitter Duration: ");
 		ImGui::TextColored(textColor, "Max:");
 		ImGui::SameLine();
-		if (ImGui::SliderFloat("##EmitterMaxDuration", &emitterConf->emitterMaxLifetime, 1, 50))
+		if (ImGui::SliderFloat("##EmitterMaxDuration", &emitterConf->emitterMaxLifetime, 1, 10))
 		{
 
 		}
@@ -259,14 +259,14 @@ void WindowParticles::DrawEmitterSettings()
 	ImGui::Text("Particle Lifetime:");
 	ImGui::TextColored(textColor, "Min:");
 	ImGui::SameLine();
-	if (ImGui::SliderFloat("##ParticlesMinDuration", &emitterConf->particlesMinLifetime, 0, 50))
+	if (ImGui::SliderFloat("##ParticlesMinDuration", &emitterConf->particlesMinLifetime, 1, 10))
 	{
 
 	}
 	ImGui::SameLine();
 	ImGui::TextColored(textColor, "Max:");
 	ImGui::SameLine();
-	if (ImGui::SliderFloat("##ParticlesMaxDuration", &emitterConf->particlesMaxLifetime, 1, 50))
+	if (ImGui::SliderFloat("##ParticlesMaxDuration", &emitterConf->particlesMaxLifetime, 1, 10))
 	{
 
 	}
@@ -303,14 +303,14 @@ void WindowParticles::DrawEmitterSettings()
 	ImGui::Text("Spawn Speed Particles:");
 	ImGui::TextColored(textColor, "Min:");
 	ImGui::SameLine();
-	if (ImGui::SliderFloat("##MinSpawnSpeedParticles", &emitterConf->particleMaxSpeed, 0, 200))
+	if (ImGui::SliderFloat("##MinSpawnSpeedParticles", &emitterConf->particleMaxSpeed, 0, 20))
 	{
 
 	}
 	ImGui::SameLine();
 	ImGui::TextColored(textColor, "Max:");
 	ImGui::SameLine();
-	if (ImGui::SliderFloat("##MaxSpawnSpeedParticles", &emitterConf->particleMinSpeed, 0, 200))
+	if (ImGui::SliderFloat("##MaxSpawnSpeedParticles", &emitterConf->particleMinSpeed, 0, 20))
 	{
 
 	}

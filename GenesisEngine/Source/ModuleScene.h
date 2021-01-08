@@ -42,14 +42,19 @@ public:
 
 private:
 	GameObject* root;
-	GameObject* fireworksGO = new GameObject();
+	GameObject* parentfireworksGO = new GameObject();
+	GameObject* explosionfireworksGO = new GameObject();
+	GameObject* colafireworksGO = new GameObject();
+
 	ImGuizmo::OPERATION mCurrentGizmoOperation;
 	ImGuizmo::MODE mCurrentGizmoMode;
 
 	std::vector<Camera*> allcameras;
 	Camera* actualCamera = nullptr;
 
-	GameObject* RecursiveFindFireworks(GameObject* go);
+	GameObject* RecursiveFindFireworks(GameObject* go, std::string name);
+	void ResetNewFireWorks();
+	void PutNewFireWorksConfig();
 	GameObject* retgo = nullptr;
 };
 

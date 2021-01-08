@@ -1452,7 +1452,7 @@
             ]
         },
         {
-            "UUID": 2001325316,
+            "UUID": 1005021512,
             "Parent UUID": 162207391,
             "Name": "Fireworks",
             "Components": [
@@ -1474,11 +1474,68 @@
                         1,
                         1
                     ]
+                }
+            ]
+        },
+        {
+            "UUID": 1021452068,
+            "Parent UUID": 1005021512,
+            "Name": "Explosion",
+            "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
                 },
                 {
                     "Type": 6,
                     "Emitter Settings": "Library\/Particles\/Emitters\/FireRocket Explosion.emittersettings",
-                    "Particles Settings": "Library\/Particles\/Base Particles\/Fireworks.particlessettings"
+                    "Particles Settings": "Library\/Particles\/Base Particles\/Fireworks3.particlessettings"
+                }
+            ]
+        },
+        {
+            "UUID": 348134867,
+            "Parent UUID": 1005021512,
+            "Name": "Cola",
+            "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 6,
+                    "Emitter Settings": "Library\/Particles\/Emitters\/FireRocketCola.emittersettings",
+                    "Particles Settings": "Library\/Particles\/Base Particles\/ColaFireworks1.particlessettings"
                 }
             ]
         }
