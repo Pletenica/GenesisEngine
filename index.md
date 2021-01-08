@@ -164,6 +164,8 @@ different cameras in the game easily.
 
 # Particle System: How it works
 
+![Animation](https://github.com/Pletenica/GenesisEngine/blob/master/Web/inGame.gif?raw=true)
+
 ## Creating Particles
 First of all you will have to create a new gameobject from the window Game Object, once created you will have to add a component of Particle system in the inspector of that gameobject. The Particle System consist basically on two parts: the base particle and the emitter. So in the inspector, aside from the gameobject name and the transform components you will have the Particle System component.
 
@@ -174,6 +176,7 @@ Then we have the Show Configuration Window option that will open the tools to ed
 ![Inspector](https://github.com/Pletenica/GenesisEngine/blob/master/Web/InspectorParticle.PNG?raw=true)
 
 ## Configuration Window
+![Animation](https://github.com/Pletenica/GenesisEngine/blob/master/Web/editorGIF.gif?raw=true)
 
 The Configuration Window is divided by particle options and emitter options. Don't forget to name the particles and the emitters and saving them by **pressing enter** and clicking on the save options in the inspector.
 ### Particles
